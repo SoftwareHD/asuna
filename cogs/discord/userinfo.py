@@ -79,9 +79,9 @@ class userinfo(commands.Cog):
        else:
          await ctx.message.add_reaction(config["emoji"]["cadeado"])
 
-###########################################
+############################################
 # Função leitura do cog
-###########################################
+############################################
 
 def setup(client):
     print("[Bot] : Cmd (userinfo) ")
