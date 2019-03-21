@@ -7,7 +7,7 @@ from discord.ext.commands import AutoShardedBot, when_mentioned_or
 from config import config
 from config import get_lang
 from config import get_prefix
-import time
+from config import get_cache
 ###########################################
 # Prefixo customizado
 ###########################################
@@ -15,6 +15,7 @@ import time
 async def prefix(client, message):
   if message.guild:
     try:
+      get_cache(message.guild.id)
       return when_mentioned_or(get_prefix(message.guild.id))(client, message)
     except KeyError:
       return when_mentioned_or(config['prefix_default'])(client, message)

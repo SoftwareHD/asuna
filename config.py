@@ -9,16 +9,23 @@ from pymongo import MongoClient
 import pymongo
 import discord
 
+timecache=dict()
 
 ###########################################
 # Leitura de dados (token, url db, etc)
 ###########################################
-with open('configs/dados.json', encoding='utf-8') as json_data:
-  config = json.load(json_data)
+
+with open('configs/dados.json', encoding='utf-8') as json_dados:
+  config = json.load(json_dados)
+
+with open('configs/cache.json', encoding='utf-8') as json_cache:
+  cache = json.load(json_cache)
+  
 
 ###########################################
 # Conexão com database
 ###########################################
+
 try:
   client = MongoClient(config["database"])
   print("[OK] - Conectado com sucesso ao database.")
@@ -58,48 +65,76 @@ def get_guild_insert(guild):
               }
       servidor_status.insert_one(data).inserted_id
 
+def get_guild_find(ids):
+  dados = servidor_status.find_one(ids)
+  return dados
+
+###########################################
+# Cache
+###########################################
+
+server_cache = {}
+
+def server_date(server, dados):
+  server_cache[server] = {}
+  if dados:
+     server_cache[server] = dados
+
+def add(ids):
+  server_date(ids, get_guild_find(ids))
+  print("Inserido!")
+
+def remove(ids):
+  del server_cache[ids]
+
+def get_cache(ids):
+    if ids in timecache:
+      w = json.loads(timecache[ids])
+      if time.time() < w:
+         return
+    timecache[ids] = json.dumps(time.time()+25)
+    if ids in server_cache:
+       remove(ids)
+       time.sleep(1)
+       add(ids)
+    else:
+      add(ids)
+
 ###########################################
 # Multi-linguagem settings
 ###########################################      
 
-response_string = {}
+translate = {}
 for i in os.listdir('./languages'):
   if i.endswith('.json'):
     with open(os.path.join('./languages', i), encoding='utf-8') as file:
       response = json.load(file)
-    response_string[i.strip('.json')] = response
+    translate[i.strip('.json')] = response
 
-
-def get_lang(guild, cmd, response):
-  servidor = servidor_status.find_one({"_id":guild})
-  if servidor is None:
-      get_guild_insert(guild)
-      return response_string[servidor["language"]][cmd][response]  
-  try:
-    return response_string[servidor["language"]][cmd][response]
-  except:
-    return response_string['english'][cmd][response]
+ 
+def get_lang(guild, cmd):
+  if guild in server_cache:
+   language = server_cache[str(guild)]["language"]
+   try:
+     return translate[language][cmd] 
+   except KeyError:
+     return translate['english'][cmd]
+  else:  
+    return translate['english'][cmd]
 
 ###########################################
 #Multi-prefixo settings
 ###########################################
 
 def get_prefix(guild):
-    servidor = servidor_status.find_one({"_id":guild})
-    if servidor is None:
-       get_guild_insert(guild)
-       return config["prefix_default"]
-    try:
-      if servidor["prefix"] is None:
-       return config["prefix_default"]
-      else:
-        return servidor["prefix"]
-    except KeyError:
-      servidor_status.update_one({"_id":guild}, {"$set":{"prefix":"a!"}})
-      return servidor["prefix"]
-    else:   
-      servidor_status.update_one({"_id":guild}, {"$set":{"prefix":"a!"}})
-      return servidor["prefix"]
+  if guild in server_cache:
+   prefix = server_cache[str(guild)]["prefix"]
+   try:
+     return prefix
+   except KeyError:
+     return "a!"
+  else:  
+    return "a!"
 
 ###########################################
 # Sistema de permissão

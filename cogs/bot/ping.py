@@ -29,14 +29,15 @@ class ping(commands.Cog):
     @commands.command()
     async def ping(self,ctx):
        if get_rank(ctx.author.id, list(ctx.author.guild_permissions), ctx.guild.id, ctx.channel.id) >=1:
+        lang = get_lang(ctx.guild, "ping")
         timep = time.time()
-        embed = discord.Embed(description=get_lang(ctx.guild.id, 'ping','wait_little').format(ctx.author.mention), color=0x7BCDE8)
+        embed = discord.Embed(description=str(lang['wait_little']).format(ctx.author.mention), color=0x7BCDE8)
         msg = await ctx.send(embed=embed)
         await asyncio.sleep(2)
         ping = time.time() - timep
         texto_ping = str('{0:.2f}ms'.format(ping*70))
         texto_ping2 = '{0:.2f}ms'.format(self.client.latency * 1000)
-        embed1 = discord.Embed(description=get_lang(ctx.guild.id, 'ping','ping_show').format(texto_ping, texto_ping2), color=0x7BCDE8)
+        embed1 = discord.Embed(description=str(lang['ping_show']).format(texto_ping, texto_ping2), color=0x7BCDE8)
         await msg.edit(embed=embed1)
        else:
          await ctx.message.add_reaction(config["emoji"]["cadeado"])
