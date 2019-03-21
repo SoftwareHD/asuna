@@ -30,7 +30,7 @@ class userinfo(commands.Cog):
     @commands.command()
     async def userinfo(self, ctx, *, user: discord.Member = None):
        if get_rank(ctx.author.id, list(ctx.author.guild_permissions), ctx.guild.id, ctx.channel.id) >=1:
-           lang = get_lang(ctx.guild, "userinfo")
+           lang = get_lang(ctx.guild.id, "userinfo")
 
            if user is None:
                usuario = ctx.author

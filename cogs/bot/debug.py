@@ -48,7 +48,7 @@ class debug(commands.Cog):
             embed.set_footer(text=self.client.user.name+" © 2018", icon_url=self.client.user.avatar_url_as())
             await ctx.send(embed=embed)       
        else:
-         await ctx.message.add_reaction(config["emoji"]["cadeado"])
+         await ctx.message.add_reaction(config["emojis"]["cadeado"])
 
 ###########################################
 # Função leitura do cog

@@ -48,5 +48,12 @@
 	        "aliases":["Nenhuma"],
 	        "example":["{prefixo}userinfo", "{prefixo}userinfo @usuário"]
 
-	        }		        	        
+	        },
+	"on_message":{"wait_little":"<:countdown:555852976720445443> **|** Olá {}, aguarde um pouco, você está me mencionando muito rápido.",
+		          "prefix_warn":["<:question:555852267840864497> **|** Olá {member_mention}, meu prefixo é {prefix}.","<:question:555852267840864497> **|** Oie, precisa de ajuda? então digite {prefix}help para saber mais sobre mim."]
+
+		 
+
+
+	              }		        	        
 }

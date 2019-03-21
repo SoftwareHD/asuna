@@ -16,11 +16,7 @@ timecache=dict()
 ###########################################
 
 with open('configs/dados.json', encoding='utf-8') as json_dados:
-  config = json.load(json_dados)
-
-with open('configs/cache.json', encoding='utf-8') as json_cache:
-  cache = json.load(json_cache)
-  
+  config = json.load(json_dados)  
 
 ###########################################
 # Conexão com database
@@ -64,9 +60,12 @@ def get_guild_insert(guild):
 
               }
       servidor_status.insert_one(data).inserted_id
+      return data
 
 def get_guild_find(ids):
   dados = servidor_status.find_one(ids)
+  if dados is None:
+    return get_guild_insert(ids)
   return dados
 
 ###########################################
@@ -82,7 +81,6 @@ def server_date(server, dados):
 
 def add(ids):
   server_date(ids, get_guild_find(ids))
-  print("Inserido!")
 
 def remove(ids):
   del server_cache[ids]
@@ -92,7 +90,7 @@ def get_cache(ids):
       w = json.loads(timecache[ids])
       if time.time() < w:
          return
-    timecache[ids] = json.dumps(time.time()+25)
+    timecache[ids] = json.dumps(time.time()+1800)
     if ids in server_cache:
        remove(ids)
        time.sleep(1)
@@ -114,7 +112,7 @@ for i in os.listdir('./languages'):
  
 def get_lang(guild, cmd):
   if guild in server_cache:
-   language = server_cache[str(guild)]["language"]
+   language = server_cache[guild]["language"]
    try:
      return translate[language][cmd] 
    except KeyError:
@@ -128,7 +126,7 @@ def get_lang(guild, cmd):
 
 def get_prefix(guild):
   if guild in server_cache:
-   prefix = server_cache[str(guild)]["prefix"]
+   prefix = server_cache[guild]["prefix"]
    try:
      return prefix
    except KeyError:
