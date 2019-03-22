@@ -18,7 +18,6 @@
 	        "rank":"Rank 7+",
 	        "aliases":["Nenhuma"],
 	        "example":["{prefixo}debug len(ctx.guild.members)"]
-
 	        },
     "userinfo":{
 	        "title_one": "Olá {}, este e seu perfil é nele contém alguma informações.",
@@ -47,13 +46,31 @@
 	        "rank":"Rank 2+",
 	        "aliases":["Nenhuma"],
 	        "example":["{prefixo}userinfo", "{prefixo}userinfo @usuário"]
-
 	        },
 	"on_message":{"wait_little":"<:countdown:555852976720445443> **|** Olá {}, aguarde um pouco, você está me mencionando muito rápido.",
 		          "prefix_warn":["<:question:555852267840864497> **|** Olá {member_mention}, meu prefixo é {prefix}.","<:question:555852267840864497> **|** Oie, precisa de ajuda? então digite {prefix}help para saber mais sobre mim."]
+	              },
+	"serverinfo":{"title":"Olá {}, este e o perfil do servidor {} e nele contém algumas informações.",
+		          "about":"Informação do servidor",
+		          "onwer":"<:home_owner:558501952649035806> Dono",
+		          "name":"<:text_a:556280026408943616> Nome",
+		          "id":"<:123:556280026019004433> Id",
+		          "created":"<:today:556280026404749332> Criação",
+		          "roles":"<:pages:556280025868140545> Cargos",
+		          "emojis":"<:emoji:558502847461982218> Emojis",
+		          "channels":"<:rank:558503320453513237> Canais",
+		          "location":"<:location:558503658409426955> Localização",
+		          "level":"<:lock:555848557341573141> Verificação",
+		          "none":"Nenhuma",
+		          "low":"Baixa",
+		          "medium":"Média",
+		          "high":"Alta",
+		          "extreme":"Muito alta",
+		          "users":"<:users:558504824274944007> Usuários"
 
-		 
 
 
-	              }		        	        
+
+
+	}		        	        
 }

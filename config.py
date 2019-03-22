@@ -138,32 +138,30 @@ def get_prefix(guild):
 # Sistema de permissão
 ###########################################
 
+
 def get_rank(user, list_perma, guild, channel):
-  servidor = servidor_status.find_one({"_id":guild})
-  if servidor is None:
-     get_guild_insert(guild)
-     return 1  
-  if not user in config["staff"]:
-   if ('administrator', True) in list_perma: return 6
-   elif ('manage_guild', True) in list_perma:return 5
-   elif ('ban_members', True) in list_perma: return 4
-   elif ('kick_members', True) in list_perma: return 3
-   elif ('manage_roles', True) in list_perma: return 2
-   elif channel in servidor["channel_lock"]:return -1
-   elif servidor["guild_lock"] is True: return -2
-   elif user in servidor["user_block"]:return -3
-   else:
-     return 1 
+  if guild in server_cache:
+   servidor = server_cache[guild]
+   try:
+     if str(user) in config["staff"]["onwer"]:return 7
+     elif str(user) in config["staff"]["admin"]:return 6
+     elif str(user) in config["staff"]["moderator"]:return 5
+     elif str(user) in config["staff"]["ajudante"]:return 4
+     elif str(user) in config["staff"]["designer"]:return 3
+     elif str(user) in config["staff"]["hunterbug"]:return 2
+     else:
+       if ('administrator', True) in list_perma: return 6
+       elif ('manage_guild', True) in list_perma:return 5
+       elif ('ban_members', True) in list_perma: return 4
+       elif ('kick_members', True) in list_perma: return 3
+       elif ('manage_roles', True) in list_perma: return 2
+       elif channel in servidor["channel_lock"]:return -1
+       elif servidor["guild_lock"] is True: return -2
+       elif user in servidor["user_block"]:return -3
+       else:
+         return 1   
+   except:
+     return 1
   else:
-    if user in config["staff"]["dev"]:return 7
-    elif user in config["staff"]["admin"]:return 6
-    elif user in config["staff"]["moderator"]:return 5
-    elif user in config["staff"]["ajudante"]:return 4
-    elif user in config["staff"]["designer"]:return 3
-    elif user in config["staff"]["hunterbug"]:return 2
-    else:
-      return 1
-
-
-
+    return 1
 

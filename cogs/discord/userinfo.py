@@ -48,10 +48,10 @@ class userinfo(commands.Cog):
            else:
              img = usuario.avatar_url_as()
            try:
-             jogo = ctx.author.activity.name
+             jogo = usuario.activity.name
            except:
                jogo = lang['not_defined']
-           if usuario.id in [y.id for y in ctx.message.guild.members if not y.bot]:
+           if usuario.id in [y.id for y in ctx.guild.members if not y.bot]:
               bot = lang['no']
            else:
              bot = lang['yes']
@@ -63,7 +63,7 @@ class userinfo(commands.Cog):
            dnd = lang['dnd']
            afk = lang['afk']
            stat = str(usuario.status).replace("online",on).replace("offline",off).replace("dnd",dnd).replace("idle",afk)
-           cargos2 = len([y.id for y in ctx.message.guild.roles])
+           cargos2 = len([y.id for y in ctx.guild.roles])
            embed = discord.Embed(title=titulo,colour=0x7BCDE8)
            embed.set_author(name=lang['author'], icon_url=ctx.author.avatar_url_as())
            embed.add_field(name=lang['tag'], value = "``"+str(usuario.name)+"#"+str(usuario.discriminator)+"``", inline=True)
@@ -77,10 +77,10 @@ class userinfo(commands.Cog):
            embed.add_field(name=lang['status'], value = "``"+str(stat)+"``", inline=True)
            embed.add_field(name=lang['playing'], value = "``"+str(jogo)+"``", inline=True)
            embed.set_thumbnail(url=img)
-           embed.set_footer(text=self.client.user.name+" © 2018", icon_url=self.client.user.avatar_url_as())
+           embed.set_footer(text=self.client.user.name+" © 2019", icon_url=self.client.user.avatar_url_as())
            await ctx.send(embed = embed)
        else:
-         await ctx.message.add_reaction(config["emoji"]["cadeado"])
+         await ctx.add_reaction(config["emoji"]["cadeado"])
 
 ###########################################
 # Função leitura do cog

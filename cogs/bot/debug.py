@@ -28,23 +28,25 @@ class debug(commands.Cog):
     @commands.guild_only()
     @commands.command()
     async def debug(self,ctx, *,args=None):
-       if get_rank(ctx.author.id, list(ctx.author.guild_permissions), ctx.guild.id, ctx.channel.id) ==7:
+       print(get_rank(ctx.author.id, list(ctx.author.guild_permissions), ctx.guild.id, ctx.channel.id))
+       if get_rank(ctx.author.id, list(ctx.author.guild_permissions), ctx.guild.id, ctx.channel.id) == 7:
+        lang = get_lang(ctx.guild.id, "debug")
         if args is None:
-           embed = discord.Embed(description=get_lang(ctx.guild.id, 'debug','debug_none').format(ctx.author.mention), color=0x7BCDE8)
+           embed = discord.Embed(description=lang['debug_none'].format(ctx.author.mention), color=0x7BCDE8)
            await ctx.send(embed=embed)
            return      
         try:
           embed = discord.Embed(colour=0x7BCDE8)
-          embed.set_author(name=get_lang(ctx.guild.id, 'debug','debug_title'), icon_url=ctx.author.avatar_url_as())
-          embed.add_field(name=get_lang(ctx.guild.id, 'debug','debug_entry'), value = '```py\n{}```'.format(args), inline=True)
-          embed.add_field(name=get_lang(ctx.guild.id, 'debug','debug_exit'), value = '```py\n{}```'.format(eval(args)), inline=True)
+          embed.set_author(name=lang['debug_title'], icon_url=ctx.author.avatar_url_as())
+          embed.add_field(name=lang['debug_entry'], value = '```py\n{}```'.format(args), inline=True)
+          embed.add_field(name=lang['debug_exit'], value = '```py\n{}```'.format(eval(args)), inline=True)
           embed.set_footer(text=self.client.user.name+" © 2018", icon_url=self.client.user.avatar_url_as())
           await ctx.send(embed=embed)  
         except Exception as e:
             embed = discord.Embed(colour=0x7BCDE8)
-            embed.set_author(name=get_lang(ctx.guild.id, 'debug','debug_title'), icon_url=ctx.author.avatar_url_as())
-            embed.add_field(name=get_lang(ctx.guild.id, 'debug','debug_entry'), value = '```py\n{}```'.format(args), inline=True)
-            embed.add_field(name=get_lang(ctx.guild.id, 'debug','debug_exit'), value = '```py\n{}```'.format(e), inline=True)
+            embed.set_author(name=lang['debug_title'], icon_url=ctx.author.avatar_url_as())
+            embed.add_field(name=lang['debug_entry'], value = '```py\n{}```'.format(args), inline=True)
+            embed.add_field(name=lang['debug_exit'], value = '```py\n{}```'.format(e), inline=True)
             embed.set_footer(text=self.client.user.name+" © 2018", icon_url=self.client.user.avatar_url_as())
             await ctx.send(embed=embed)       
        else:
