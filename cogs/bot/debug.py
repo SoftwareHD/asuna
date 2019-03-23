@@ -8,9 +8,9 @@ import random
 import time
 import asyncio
 import json
-from config import config
-from config import get_lang
-from config import get_rank
+from configs.config import config
+from configs.config import get_lang
+from configs.config import get_rank
 
 ###########################################
 # Class reformulada
@@ -57,5 +57,4 @@ class debug(commands.Cog):
 ###########################################
 
 def setup(client):
-    print("[Bot] : Cmd (debug) ")
     client.add_cog(debug(client))

@@ -15,7 +15,7 @@ timecache=dict()
 # Leitura de dados (token, url db, etc)
 ###########################################
 
-with open('configs/dados.json', encoding='utf-8') as json_dados:
+with open('./json/configs/dados.json', encoding='utf-8') as json_dados:
   config = json.load(json_dados)  
 
 ###########################################
@@ -103,13 +103,22 @@ def get_cache(ids):
 ###########################################      
 
 translate = {}
-for i in os.listdir('./languages'):
+for i in os.listdir('./json/languages'):
   if i.endswith('.json'):
-    with open(os.path.join('./languages', i), encoding='utf-8') as file:
+    with open(os.path.join('./json/languages', i), encoding='utf-8') as file:
       response = json.load(file)
     translate[i.strip('.json')] = response
 
- 
+def get_lang_id(guild):
+  if guild in server_cache:
+   language = server_cache[guild]["language"]
+   try:
+     return language
+   except KeyError:
+     return'english'
+  else:  
+    return 'english'
+
 def get_lang(guild, cmd):
   if guild in server_cache:
    language = server_cache[guild]["language"]

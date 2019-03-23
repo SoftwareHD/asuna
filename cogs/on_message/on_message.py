@@ -8,10 +8,9 @@ import random
 import time
 import asyncio
 import json
-from config import config
-from config import get_lang
-from config import get_rank
-from config import get_prefix
+from configs.config import config
+from configs.config import get_lang
+from configs.config import get_rank
 
 
 timeflood=dict()
@@ -61,5 +60,4 @@ class on_message(commands.Cog):
 ###########################################
 
 def setup(client):
-    print("[Bot] : Cmd (on_message) ")
     client.add_cog(on_message(client))

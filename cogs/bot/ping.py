@@ -8,9 +8,9 @@ import random
 import time
 import asyncio
 import json
-from config import config
-from config import get_lang
-from config import get_rank
+from configs.config import config
+from configs.config import get_lang
+from configs.config import get_rank
 
 ###########################################
 # Class reformulada
@@ -29,6 +29,7 @@ class ping(commands.Cog):
     @commands.command()
     async def ping(self,ctx):
        if get_rank(ctx.author.id, list(ctx.author.guild_permissions), ctx.guild.id, ctx.channel.id) >=1:
+        print(list(ctx.author.guild_permissions))
         lang = get_lang(ctx.guild.id, "ping")
         timep = time.time()
         embed = discord.Embed(description=str(lang['wait_little']).format(ctx.author.mention), color=0x7BCDE8)
@@ -47,5 +48,4 @@ class ping(commands.Cog):
 ###########################################
 
 def setup(client):
-    print("[Bot] : Cmd (ping) ")
     client.add_cog(ping(client))
