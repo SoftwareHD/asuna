@@ -82,10 +82,15 @@
 	                "rank":"Rank 2+",
 	                "aliases":["gis","image"],
 	                "example":["{prefixo}gis kirito x asuna"]
-
-
-
-
-}		        	        
-
+},		        	        
+    "google_link":{"search_none":"<:question:555852267840864497> **|** Olá {}, você não inseriu uma busca válida.",
+    	            "find":"Sua busca referente a **{}** resultou nos seguintes links.\n\n{}",
+    	            "gs":"Buscador google (link)",
+    	            "not_find" : "<:cancel:558827063482777610> **|** Não foi possivel encontrar link sobre **{}** no google.",
+    	            "title": ["google search"],
+	                "description":"Busque link's de sites no google.",
+	                "rank":"Rank 2+",
+	                "aliases":["gs","link"],
+	                "example":["{prefixo}gs facebook"]
+}	
 }
