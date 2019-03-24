@@ -48,7 +48,7 @@ class serverinfo(commands.Cog):
            texto = "<:hashtag:558397558549118978> : ``"+str(len(servidor.text_channels))+"``<:sound:558500897676853258>  : ``"+str(len(servidor.voice_channels))+"``"
            cargos = len([y.id for y in servidor.roles])
            emojis = len([y.id for y in servidor.emojis])
-           embed = discord.Embed(title=str(lang["title"]).format(ctx.author.name, servidor.name),colour=0x7BCDE8)
+           embed = discord.Embed(description=str(lang["description_embed"]).format(ctx.author.name, servidor.name),colour=0x7BCDE8)
            embed.set_author(name=lang["about"], icon_url=ctx.author.avatar_url_as())
            embed.add_field(name=lang["onwer"], value = "``"+str(servidor.owner)+"``", inline=True)
            embed.add_field(name=lang["name"], value = "``"+str(servidor.name)+"``", inline=True)

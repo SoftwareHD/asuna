@@ -50,7 +50,7 @@
 	"on_message":{"wait_little":"<:countdown:555852976720445443> **|** Olá {}, aguarde um pouco, você está me mencionando muito rápido.",
 		          "prefix_warn":["<:question:555852267840864497> **|** Olá {member_mention}, meu prefixo é {prefix}.","<:question:555852267840864497> **|** Oie, precisa de ajuda? então digite {prefix}help para saber mais sobre mim."]
 	              },
-	"serverinfo":{"title":"Olá {}, este e o perfil do servidor {} e nele contém algumas informações.",
+	"serverinfo":{"description_embed":"Olá {}, este e o perfil do servidor {} e nele contém algumas informações.",
 		          "about":"Informação do servidor",
 		          "onwer":"<:home_owner:558501952649035806> Dono",
 		          "name":"<:text_a:556280026408943616> Nome",
@@ -92,5 +92,25 @@
 	                "rank":"Rank 2+",
 	                "aliases":["gs","link"],
 	                "example":["{prefixo}gs facebook"]
-}	
+},
+	"botinfo":{"description_embed":"Olá {}, este e o perfil da {} e nele contém algumas informações.",
+		       "title_embed":"informações da {}",
+		       "created_by":"<:home_owner:558501952649035806> Criado por",
+		       "tag":"<:tag:556280026199359494> Tag",
+		       "ids":"<:123:556280026019004433> Id",
+		       "api":"<:api:555852590353612800> Api",
+		       "python":"<:python:559134130839879688> Python",
+		       "memory":"<:memory:559160373027274772> Memoria",
+		       "uptime":"<:countdown:555852976720445443> Tempo de atividade",
+		       "servers":"<:server:555852590101823538> Servidores",
+		       "ping":"<:ping:559173640097234967> Lâtencia",
+		       "day":"dia",
+		       "minute":"minuto",
+		       "hour":"hora",
+		       "second":"segundo"
+
+
+
+	}
+
 }

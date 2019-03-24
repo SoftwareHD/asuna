@@ -64,7 +64,7 @@ class userinfo(commands.Cog):
            afk = lang['afk']
            stat = str(usuario.status).replace("online",on).replace("offline",off).replace("dnd",dnd).replace("idle",afk)
            cargos2 = len([y.id for y in ctx.guild.roles])
-           embed = discord.Embed(title=titulo,colour=0x7BCDE8)
+           embed = discord.Embed(description=titulo,colour=0x7BCDE8)
            embed.set_author(name=lang['author'], icon_url=ctx.author.avatar_url_as())
            embed.add_field(name=lang['tag'], value = "``"+str(usuario.name)+"#"+str(usuario.discriminator)+"``", inline=True)
            embed.add_field(name=lang['id'], value = "``"+str(usuario.id)+"``", inline=True)

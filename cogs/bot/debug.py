@@ -8,6 +8,7 @@ import random
 import time
 import asyncio
 import json
+import sys
 from configs.config import config
 from configs.config import get_lang
 from configs.config import get_rank
@@ -28,7 +29,6 @@ class debug(commands.Cog):
     @commands.guild_only()
     @commands.command()
     async def debug(self,ctx, *,args=None):
-       print(get_rank(ctx.author.id, list(ctx.author.guild_permissions), ctx.guild.id, ctx.channel.id))
        if get_rank(ctx.author.id, list(ctx.author.guild_permissions), ctx.guild.id, ctx.channel.id) == 7:
         lang = get_lang(ctx.guild.id, "debug")
         if args is None:
