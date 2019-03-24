@@ -9,6 +9,7 @@ import time
 import asyncio
 import json
 import sys
+import inspect
 from configs.config import config
 from configs.config import get_lang
 from configs.config import get_rank
@@ -25,7 +26,8 @@ class debug(commands.Cog):
 # Comando com (cooldown, only guild)
 ###########################################
 
-    @commands.cooldown(1,10,commands.BucketType.user)
+
+    @commands.cooldown(1,1,commands.BucketType.user)
     @commands.guild_only()
     @commands.command()
     async def debug(self,ctx, *,args=None):
@@ -34,21 +36,31 @@ class debug(commands.Cog):
         if args is None:
            embed = discord.Embed(description=lang['debug_none'].format(ctx.author.mention), color=0x7BCDE8)
            await ctx.send(embed=embed)
-           return      
+           return  
+        
+        args = args.strip('` ')
+        python = '```py\n{}\n```'
+        result = None
+        env = {'client': self.client,'ctx': ctx}   
+        env.update(globals())
         try:
-          embed = discord.Embed(colour=0x7BCDE8)
-          embed.set_author(name=lang['debug_title'], icon_url=ctx.author.avatar_url_as())
-          embed.add_field(name=lang['debug_entry'], value = '```py\n{}```'.format(args), inline=True)
-          embed.add_field(name=lang['debug_exit'], value = '```py\n{}```'.format(eval(args)), inline=True)
-          embed.set_footer(text=self.client.user.name+" © 2018", icon_url=self.client.user.avatar_url_as())
-          await ctx.send(embed=embed)  
+            result = eval(args, env)
+            if inspect.isawaitable(result):
+               result = await result
+            embed = discord.Embed(colour=0x7BCDE8)
+            embed.set_author(name=lang['debug_title'], icon_url=ctx.author.avatar_url_as())
+            embed.add_field(name=lang['debug_entry'], value = '```py\n{}```'.format(args), inline=True)
+            embed.add_field(name=lang['debug_exit'], value = python.format(result), inline=True)
+            embed.set_footer(text=self.client.user.name+" © 2018", icon_url=self.client.user.avatar_url_as())
+            await ctx.send(embed=embed) 
         except Exception as e:
             embed = discord.Embed(colour=0x7BCDE8)
             embed.set_author(name=lang['debug_title'], icon_url=ctx.author.avatar_url_as())
             embed.add_field(name=lang['debug_entry'], value = '```py\n{}```'.format(args), inline=True)
-            embed.add_field(name=lang['debug_exit'], value = '```py\n{}```'.format(e), inline=True)
+            embed.add_field(name=lang['debug_exit'], value = python.format(type(e).__name__ + ': ' + str(e)), inline=True)
             embed.set_footer(text=self.client.user.name+" © 2018", icon_url=self.client.user.avatar_url_as())
-            await ctx.send(embed=embed)       
+            await ctx.send(embed=embed)
+            
        else:
          await ctx.message.add_reaction(config["emojis"]["cadeado"])
 

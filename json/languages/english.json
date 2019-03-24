@@ -104,6 +104,7 @@
 		       "uptime":"<:countdown:555852976720445443> Tempo de atividade",
 		       "servers":"<:server:555852590101823538> Servidores",
 		       "ping":"<:ping:559173640097234967> Lâtencia",
+		       "prefix":"<:hashtag:558397558549118978> Prefixo",
 		       "day":"dia",
 		       "minute":"minuto",
 		       "hour":"hora",
