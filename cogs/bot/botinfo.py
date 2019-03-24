@@ -72,7 +72,6 @@ class botinfo(commands.Cog):
        if get_rank(ctx.author.id, list(ctx.author.guild_permissions), ctx.guild.id, ctx.channel.id) >=1:
           lang = get_lang(ctx.guild.id, "botinfo")
           mem = get_memory()
-
           embed = discord.Embed(description=str(lang['description_embed']).format(ctx.author.name, self.client.user.name),colour=0x7BCDE8)
           embed.set_author(name=str(lang["title_embed"]).format(self.client.user.name), icon_url=ctx.author.avatar_url_as())
           embed.add_field(name=str(lang["created_by"]), value = '``Yuka Tuka#8484``', inline=True)
