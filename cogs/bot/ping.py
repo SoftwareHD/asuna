@@ -37,8 +37,8 @@ class ping(commands.Cog):
         ping = time.time() - timep
         texto_ping = str('{0:.2f}ms'.format(ping*70))
         texto_ping2 = '{0:.2f}ms'.format(self.client.latency * 1000)
-        embed1 = discord.Embed(description=str(lang['ping_show']).format(texto_ping, texto_ping2), color=0x7BCDE8)
-        await msg.edit(embed=embed1)
+        embed = discord.Embed(description=str(lang['ping_show']).format(texto_ping, texto_ping2), color=0x7BCDE8)
+        await msg.edit(embed=embed)
        else:
          await ctx.message.add_reaction(config["emoji"]["cadeado"])
 

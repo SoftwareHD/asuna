@@ -14,6 +14,8 @@ import os
 from configs.config import config
 from configs.config import get_lang
 from configs.config import get_rank
+from configs.config import get_prefix
+
 
 startTime = time.time()
 def getUptime():
@@ -72,6 +74,7 @@ class botinfo(commands.Cog):
        if get_rank(ctx.author.id, list(ctx.author.guild_permissions), ctx.guild.id, ctx.channel.id) >=1:
           lang = get_lang(ctx.guild.id, "botinfo")
           mem = get_memory()
+
           embed = discord.Embed(description=str(lang['description_embed']).format(ctx.author.name, self.client.user.name),colour=0x7BCDE8)
           embed.set_author(name=str(lang["title_embed"]).format(self.client.user.name), icon_url=ctx.author.avatar_url_as())
           embed.add_field(name=str(lang["created_by"]), value = '``Yuka Tuka#8484``', inline=True)
@@ -83,7 +86,9 @@ class botinfo(commands.Cog):
           embed.add_field(name=str(lang["uptime"]), value = '``'+str(timetotal()).replace("{day}",lang["day"]).replace("{hour}",lang["hour"]).replace("{minute}",lang["minute"]).replace("{second}",lang["second"])+'``', inline=True)
           embed.add_field(name=str(lang["servers"]), value = '``'+str(len(self.client.guilds))+' (shards '+str(config["shard_count"])+')``', inline=True)
           embed.add_field(name=str(lang["ping"]), value = '``{0:.2f}ms``'.format(self.client.latency * 1000), inline=True)
-          embed.set_footer(text=self.client.user.name+" © 2018", icon_url=self.client.user.avatar_url_as())
+          embed.add_field(name=str(lang["prefix"]), value = '``'+str(get_prefix(ctx.guild.id))+'``', inline=True)
+
+          embed.set_footer(text=self.client.user.name+" © 2019", icon_url=self.client.user.avatar_url_as())
           await ctx.send(embed=embed)
        else:
          await ctx.message.add_reaction(config["emoji"]["cadeado"])

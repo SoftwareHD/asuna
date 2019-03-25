@@ -11,6 +11,7 @@ import json
 from configs.config import config
 from configs.config import get_lang
 from configs.config import get_rank
+from configs.config import get_prefix
 
 
 timeflood=dict()
@@ -33,7 +34,7 @@ class on_message(commands.Cog):
     async def on_message(self, message):
         if message.author == self.client.user:
             return
-        
+      
         if message.content == self.client.user.mention:
          if get_rank(message.author.id, list(message.author.guild_permissions), message.guild.id, message.channel.id) >=1:
           lang = get_lang(message.guild.id, "on_message")

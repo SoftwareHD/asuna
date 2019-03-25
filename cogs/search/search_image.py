@@ -60,10 +60,10 @@ class ping(commands.Cog):
             for a in soup.find_all("div",{"class":"rg_meta"}):
                 gga = json.loads(a.text)["ou"]
                 list.append(gga)
-            em = discord.Embed(description=str(lang["find"]).format(args.title()),colour=0x7BCDE8)
-            em.set_author(name=str(lang["gis"]), icon_url=ctx.author.avatar_url_as())
-            em.set_footer(text=self.client.user.name+" © 2019", icon_url=self.client.user.avatar_url_as())
-            paginator = Paginator(ctx, pages=list[:50], page_count=True, embed=em)
+            embed = discord.Embed(description=str(lang["find"]).format(args.title()),colour=0x7BCDE8)
+            embed.set_author(name=str(lang["gis"]), icon_url=ctx.author.avatar_url_as())
+            embed.set_footer(text=self.client.user.name+" © 2019", icon_url=self.client.user.avatar_url_as())
+            paginator = Paginator(ctx, pages=list[:50], page_count=True, embed=embed)
             await paginator.run()
         except Exception as error:
                 embed = discord.Embed(description=str(lang["not_find"]).format(args.title()),colour=0x7BCDE8)

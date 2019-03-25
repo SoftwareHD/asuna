@@ -59,8 +59,10 @@ class debug(commands.Cog):
             embed.add_field(name=lang['debug_entry'], value = '```py\n{}```'.format(args), inline=True)
             embed.add_field(name=lang['debug_exit'], value = python.format(type(e).__name__ + ': ' + str(e)), inline=True)
             embed.set_footer(text=self.client.user.name+" © 2018", icon_url=self.client.user.avatar_url_as())
-            await ctx.send(embed=embed)
-            
+            await ctx.send(embed=embed) 
+            return
+
+  
        else:
          await ctx.message.add_reaction(config["emojis"]["cadeado"])
 

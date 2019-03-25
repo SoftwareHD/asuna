@@ -93,7 +93,6 @@ class ping(commands.Cog):
             await ctx.send(embed=embed)
         except Exception as e:
             embed = discord.Embed(description=str(lang['not_find']).format(args), color=0x7BCDE8)
-            print(e)
             await ctx.send(embed=embed)
             return          
        else:
