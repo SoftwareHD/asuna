@@ -1,0 +1,43 @@
+
+
+
+		<nav class="navbar dashboard-nav navbar-inverse animated">
+			<div class="container">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<a class="navbar-brand" style="padding:7px 15px!important;" href="/index">
+						<span><img src="{{url_for('static', filename='img/asuna_pic.png')}}" style="width:30px;border:1px solid #006687;box-shadow: 0px 0px 3px #006687;" class="img-circle"></span>
+						Asuna <span class="badge beta-badge">BETA</span></a>
+				</div>
+				<div id="navbar" class="navbar-collapse collapse">
+					<ul class="nav navbar-nav pull-right">
+							<li><a href="http://twitter.com/project-asuna" target="_blank" style="padding-left:5px; padding-right:5px;"><i class="fa fa-twitter"></i> Twitter</a></li>
+							<li><a href="https://discord.gg/vsBUeWM" target="_blank" style="padding-left:5px; padding-right:5px;"><i class="fa fa-weixin"></i> Discord</a></li>
+		                     <li><a href="https://github.com/git-yuka/asuna" target="_blank" style="padding-left:5px; padding-right:5px;"><i class="fa fa-github"></i> Github</a></li>
+							<ul class="dropdown-menu" aria-labelledby="community">
+
+							</ul>
+						{% if user %}
+
+						<li class="dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+								<img src="https://cdn.discordapp.com/avatars/{{ user['id'] }}/{{ user['avatar'] }}.png" class="profile-image img-circle"> {{ user['username'] }} <b class="caret"></b></a>
+							<ul class="dropdown-menu">
+								<li><a href="/donate"><i class="fa fa-gift"></i> Premium</a></li>
+					            <li><a href="/guilds"><i class="fa fa-gamepad"></i> Servidores</a></li>
+					            <li><a href="/logout"><i class="fa fa-sign-out"></i> Sair</a></li>
+						{% else %}
+							<li><a href="{{ url['url_authentication'] }}"><i class="fa fa-sign-in"></i> Login</a></li>
+						{% endif %}
+
+							</ul>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</nav>
