@@ -1,6 +1,7 @@
 {% extends 'full-page.html' %}
 {% block content %}
 	<div class="jumbotron home-jumbotron">
+
 		<div class="container">
 			<div class="row">
 				<div class="col-md-4 col-md-offset-4 animated bounceInDown text-center">
@@ -10,13 +11,13 @@
 			</div>
 			<div class="row row-centered animated bounceInUp">
 					{% for server in guilds %}
-						<div class="col-md-1 col-xs-3 text-center col-centered" style="font-size:13px; color:#FFF;">
+						<div class="col-md-1 col-xs-1 text-center col-centered" style="font-size:13px; color:#FFF;">
 							<a href="/dashboard/{{server['id']}}" style="color:#FFF">
 								<img {% if server['icon'] %}src="https://cdn.discordapp.com/icons/{{server['id']}}/{{server['icon']}}.jpg"{%endif%} {% if not server['icon'] %}avatar="{{server['name']}}" {%endif%}  style="width:100%; border:2px #FFF solid;" class="img-circle" data-toggle="tooltip" title="{{server['name']}}" data-placement="bottom" ></a>
 						</div>
 					{% else %}
-							<h3>... Parece que você não tem nenhum servidor!</h3>
-							<h3>Vá criar um!<br/>Eu estou esperando por você ;)</h3>
+							<h3>... It looks like you don't have any servers!</h3>
+							<h3>Go create one ! <br/>I'm waiting for you ;) </h3>
 					{% endfor %}
 			</div>
 			</div>

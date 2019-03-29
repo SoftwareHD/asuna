@@ -33,22 +33,11 @@ servidor_status = db["raphtalia"]["guild"]
 
 def get_guild_insert(guild):
       data = {"_id":guild,
-              "status_welcome":False,
-              "tipo_welcome":"1",
-              "canal_welcome":None,
-              "message_welcome":"Olá (member_mention), seja bem vindo ao (server_name)",
-              "private_welcome":False,
-              "status_leave":False,
-              "tipo_leave":"1",
-              "canal_leave":None,
-              "message_leave":"O usuário (member_name), saiu do servidor.",
-              "level_up_status":False,
-              "canal_level_up":None,
-              "private_level_up":None,
-              "channel_level_up":None,
-              "setado_level_up":None,
-              "auto_role":None,
-              "status_auto_role":False,
+              "welcome_channel":None,
+              "welcome_type":3,
+              "welcome_text":None,
+              "welcome_private":False,
+              "welcome_status":False,
               "guild_lock":False,
               "channel_lock":[],
               "user_block":[],
@@ -64,3 +53,13 @@ def get_guild_find(ids):
   if dados is None:
     return get_guild_insert(ids)
   return dados
+
+def get_guild_update_welcome(ids, welcome_channel, welcome_type, welcome_text,welcome_private, welcome_status):
+    servidor_status.update_many({"_id":ids},{"$set": {"welcome_channel":welcome_channel,"welcome_type":welcome_type, "welcome_text":welcome_text,"welcome_private":welcome_private,"welcome_status":welcome_status}})
+
+def get_guild_update_func(ids, string, status):
+    servidor_status.update_one({"_id":ids},{"$set": {string:status}})
+
+###########################################
+# Fim
+###########################################

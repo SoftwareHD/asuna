@@ -2,7 +2,7 @@
 # Lista de imports
 ###########################################
 
-from flask import Flask, render_template, request, session, redirect, jsonify
+from flask import Flask, session, request, url_for, render_template, redirect,jsonify, flash, abort, Response
 from urllib.parse import quote
 import requests, api, time, json
 from configs.config import *
@@ -11,7 +11,7 @@ from configs.get import *
 ###########################################
 # Leitura de dados (config, token)
 ###########################################
-
+check = []
 app = Flask(__name__)
 app.config['SECRET_KEY'] = config["secret_key"]
 
@@ -66,7 +66,7 @@ def guilds():
 	return render_template('select-server.html', user=user, guilds=guilds, title="Asuna - Servidores")
 
 ###########################################
-# pagina da guild
+# modulos da guild
 ###########################################
 
 @app.route('/dashboard/<int:server_id>')
@@ -92,9 +92,70 @@ def dashboard(server_id):
        date = get_date_guild(server_id)
      except requests.exceptions.HTTPError:return redirect("/")
 	 
-     return render_template('dashboard.html', guild=guild,user=user, date=date, title="Asuna - "+guild["name"])
+     return render_template('dashboard.html', guild=guild,guild_db=guild_db,user=user, date=date, title="Asuna - "+guild["name"])
 
+###########################################
+# modulo welcome
+###########################################
 
+@app.route('/dashboard/<int:server_id>/welcome')
+def dashboard_welcome(server_id):
+    guild = get_guild(server_id)
+    if guild is None:
+       return redirect(get_invite_link(config["id_bot"], server_id, quote(config["redirect_2"])))  
+    servers = api.get_guilds(session.get('token'))
+    guilds = list(filter(lambda g: (g['owner'] is True) or bool((int(g['permissions']) >> 5) & 1),servers))
+    perm = []
+    for gg in guilds:
+      if guild["id"] == gg["id"]:
+         perm.append(guild["id"])
+      else:
+        pass
+    guild_db = get_guild_find(server_id)
+    if guild_db is None:
+       return redirect(url_for('guilds'))
+    
+    if guild["id"] in perm:   
+     try:
+       user = api.get_info(session.get('token'))
+       date = get_date_guild(server_id)
+       channels = get_guild_channels_type(server_id, 0)
+
+     except requests.exceptions.HTTPError:return redirect("/")
+	 
+     return render_template('dashboard_welcome.html', guild=guild, check=check,channels=channels, guild_db=guild_db,user=user, date=date, title="Asuna2 - "+guild["name"])
+
+###########################################
+# get dados do welcome
+###########################################
+
+@app.route('/dashboard/<int:server_id>/welcome/update', methods=['POST'])
+def update_welcome(server_id):
+    guild_db = get_guild_find(server_id)
+    if request.form["btn"] == "atualizar":
+        welcome_message = request.form.get('welcome_message')
+        private = request.form.get('private')
+        if private == "on":
+           welcome_private = True
+        else:
+           welcome_private = False
+        welcome_channel = request.form.get('channel')
+        welcome_type = request.form.get('type')
+        if not server_id in checks:
+           checks.append(server_id)
+        else:
+          pass         
+        get_guild_update_welcome(server_id, welcome_channel, welcome_type, welcome_text,welcome_private, True)
+        return redirect(url_for('dashboard_welcome', server_id=server_id))
+    if request.form["btn"] == "resetar":
+       get_guild_update_welcome(server_id, None, None, None,None, True)
+       return redirect(url_for('dashboard_welcome', server_id=server_id))
+    if request.form["btn"] == "desligar":
+       get_guild_update_func(server_id, "welcome_status", False)       
+       return redirect(url_for('dashboard_welcome', server_id=server_id))
+    if request.form["btn"] == "ligar":
+       get_guild_update_func(server_id, "welcome_status", True)       
+       return redirect(url_for('dashboard_welcome', server_id=server_id))
 
 ###########################################
 # deslogar a conta do site

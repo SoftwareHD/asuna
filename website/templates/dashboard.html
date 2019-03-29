@@ -2,12 +2,11 @@
 {% block dash_content %}
 	<div class="container">
 		<div class="row">
-	
-	
+		 {% include 'plugins.html' %}
+
 
 
 	<script src="{{url_for('static', filename='js/mention.js')}}"></script>
 	<script src="{{url_for('static', filename='js/bootstrap-typeahead.js')}}"></script>
 	<link href="{{url_for('static', filename='css/recommended-styles.css')}}" rel="stylesheet">
-
 {% endblock %}

@@ -77,3 +77,8 @@ def get_date_guild(server_id):
    roles = get_guild_channels(server_id)  
    lista = {"members":len(members),"channels":len(channels), "roles":len(roles)}
    return lista  
+
+###########################################
+# Fim
+###########################################
+  
