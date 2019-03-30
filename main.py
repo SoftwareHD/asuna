@@ -4,10 +4,8 @@
 
 import discord
 from discord.ext.commands import AutoShardedBot, when_mentioned_or
-from configs.config import config
-from configs.config import get_lang
-from configs.config import get_prefix
-from configs.config import get_cache
+from configs.config import *
+
 ###########################################
 # Prefixo customizado
 ###########################################

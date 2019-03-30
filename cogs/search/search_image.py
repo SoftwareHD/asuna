@@ -13,10 +13,8 @@ import json
 import requests
 from bs4 import BeautifulSoup
 import bs4
-from configs.config import config
-from configs.config import get_lang
-from configs.config import get_lang_id
-from configs.config import get_rank
+from configs.config import *
+
 from configs.paginator import Paginator
 
 
@@ -38,7 +36,7 @@ class ping(commands.Cog):
     async def google_image(self,ctx, *, args=None):
        if get_rank(ctx.author.id, None, ctx.guild.id, ctx.channel.id) >=1:
         lang = get_lang(ctx.guild.id, "google_image")
-        lang_id = get_lang_id(ctx.guild.id)
+        lang_id = date_server_cache(ctx.guild.id)['language']
         if args is None:
            embed = discord.Embed(description=str(lang['search_none']).format(ctx.author.mention), color=0x7BCDE8)
            await ctx.send(embed=embed)

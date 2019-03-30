@@ -8,9 +8,8 @@ import random
 import time
 import asyncio
 import json
-from configs.config import config
-from configs.config import get_lang
-from configs.config import get_rank
+from configs.config import *
+
 
 
 ###########################################

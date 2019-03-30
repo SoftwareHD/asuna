@@ -13,10 +13,7 @@ import json
 import requests
 from bs4 import BeautifulSoup
 import bs4
-from configs.config import config
-from configs.config import get_lang
-from configs.config import get_lang_id
-from configs.config import get_rank
+from configs.config import *
 from configs.paginator import Paginator
 
 
@@ -38,7 +35,7 @@ class ping(commands.Cog):
     async def google_link(self,ctx, *, args=None):
        if get_rank(ctx.author.id, None, ctx.guild.id, ctx.channel.id) >=1:
         lang = get_lang(ctx.guild.id, "google_link")
-        lang_id = get_lang_id(ctx.guild.id)
+        lang_id = date_server_cache(ctx.guild.id)['language']
         if args is None:
            embed = discord.Embed(description=str(lang['search_none']).format(ctx.author.mention), color=0x7BCDE8)
            await ctx.send(embed=embed)
@@ -49,10 +46,10 @@ class ping(commands.Cog):
           else:
             safe = "on"
           if lang_id == "portuguese":
-             query = f"{args} pt-br"
+             query = f"{args} pt-br .com"
              lang_params = "pt-br"
           else:
-            query = f"{args}"      
+            query = f"{args} .com"      
             lang_params = "en-us" 
           params = {"q": query, "safe": safe, "lang":lang_params}
           headers = {"Accept-Language": lang_params,"User-Agent": config["user_agent"]}
@@ -92,6 +89,7 @@ class ping(commands.Cog):
             embed.set_footer(text=self.client.user.name+" © 2019", icon_url=self.client.user.avatar_url_as())
             await ctx.send(embed=embed)
         except Exception as e:
+            print(e)
             embed = discord.Embed(description=str(lang['not_find']).format(args), color=0x7BCDE8)
             await ctx.send(embed=embed)
             return          

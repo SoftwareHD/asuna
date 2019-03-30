@@ -11,6 +11,8 @@ import json
 import sys
 import psutil
 import os
+import pytz
+from datetime import datetime
 from configs.config import *
 
 
@@ -51,29 +53,34 @@ def get_memory():
     memory['process_python'] = f'{process / 1024/1024:.2f}'
     return memory
 
+timeflood=dict()
+aviso = []
 
 ###########################################
 # Class reformulada
 ###########################################
 
-class botinfo(commands.Cog):
+class status_asuna(commands.Cog):
     def __init__(self, client):
         self.client = client
 
-###########################################
-# Comando com (cooldown, only guild)
-###########################################
 
-    @commands.cooldown(1,10,commands.BucketType.user)
-    @commands.guild_only()
-    @commands.command()
-    async def botinfo(self,ctx):
-       if get_rank(ctx.author.id, list(ctx.author.guild_permissions), ctx.guild.id, ctx.channel.id) >=1:
-          lang = get_lang(ctx.guild.id, "botinfo")
+###########################################
+# Eventos status_asuna
+###########################################
+    @commands.Cog.listener()
+    async def on_ready(self):
+      while True:
+       server = self.client.get_guild(int(config["guild_asuna"]))
+       channel = discord.utils.get(server.channels, id=int(config["status"]))
+       user = discord.utils.get(server.members, id=int(config["yuka"]))
+       message = await channel.fetch_message(int(config["id_status"]))
+       time = str(datetime.now(pytz.timezone('America/Sao_Paulo')).strftime("%H:%M:%S - %d/%m/20%y")) 
+       try:
+          lang = get_lang(server.id, "botinfo")
           mem = get_memory()
-
-          embed = discord.Embed(description=str(lang['description_embed']).format(ctx.author.name, self.client.user.name),colour=0x7BCDE8)
-          embed.set_author(name=str(lang["title_embed"]).format(self.client.user.name), icon_url=ctx.author.avatar_url_as())
+          embed = discord.Embed(colour=0x7BCDE8)
+          embed.set_author(name=str(lang["title_embed_2"]).format(self.client.user.name), icon_url=user.avatar_url_as())
           embed.add_field(name=str(lang["created_by"]), value = '``Yuka Tuka#8484``', inline=True)
           embed.add_field(name=str(lang["tag"]), value = '``'+str(self.client.user)+'``', inline=True)
           embed.add_field(name=str(lang["ids"]), value = '``'+str(self.client.user.id)+'``', inline=True)
@@ -83,16 +90,19 @@ class botinfo(commands.Cog):
           embed.add_field(name=str(lang["uptime"]), value = '``'+str(timetotal()).replace("{day}",lang["day"]).replace("{hour}",lang["hour"]).replace("{minute}",lang["minute"]).replace("{second}",lang["second"])+'``', inline=True)
           embed.add_field(name=str(lang["servers"]), value = '``'+str(len(self.client.guilds))+' (shards '+str(config["shard_count"])+')``', inline=True)
           embed.add_field(name=str(lang["ping"]), value = '``{0:.2f}ms``'.format(self.client.latency * 1000), inline=True)
-          embed.add_field(name=str(lang["prefix"]), value = '``'+str(get_prefix(ctx.guild.id))+'``', inline=True)
+          embed.add_field(name=str(lang["prefix"]), value = '``'+str(get_prefix(server.id))+'``', inline=True)
+          embed.add_field(name=str(lang["update"]), value = '``'+str(time)+'``', inline=True)
 
           embed.set_footer(text=self.client.user.name+" © 2019", icon_url=self.client.user.avatar_url_as())
-          await ctx.send(embed=embed)
-       else:
-         await ctx.message.add_reaction(config["emoji"]["cadeado"])
+          await message.edit(embed=embed)
+          await asyncio.sleep(3600)
+       except Exception as e:
+           await message.edit(e)
+ 
 
 ###########################################
 # Função leitura do cog
 ###########################################
 
 def setup(client):
-    client.add_cog(botinfo(client))
+    client.add_cog(status_asuna(client))

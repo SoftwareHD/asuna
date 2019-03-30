@@ -8,10 +8,13 @@ import random
 import time
 import asyncio
 import json
-from configs.config import config
-from configs.config import get_lang
-from configs.config import get_rank
-from configs.config import get_prefix
+import sys
+import psutil
+import os
+import pytz
+from datetime import datetime
+from configs.config import *
+
 
 
 timeflood=dict()
@@ -29,7 +32,8 @@ class on_message(commands.Cog):
 ###########################################
 # Eventos On_message
 ###########################################
-    
+
+
     @commands.Cog.listener()
     async def on_message(self, message):
         if message.author == self.client.user:

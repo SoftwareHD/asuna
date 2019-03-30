@@ -36,22 +36,6 @@ servidor_status = client["raphtalia"]["guild"]
 
 def get_guild_insert(guild):
       data = {"_id":guild,
-              "status_welcome":False,
-              "tipo_welcome":"1",
-              "canal_welcome":None,
-              "message_welcome":"Olá (member_mention), seja bem vindo ao (server_name)",
-              "private_welcome":False,
-              "status_leave":False,
-              "tipo_leave":"1",
-              "canal_leave":None,
-              "message_leave":"O usuário (member_name), saiu do servidor.",
-              "level_up_status":False,
-              "canal_level_up":None,
-              "private_level_up":None,
-              "channel_level_up":None,
-              "setado_level_up":None,
-              "auto_role":None,
-              "status_auto_role":False,
               "guild_lock":False,
               "channel_lock":[],
               "user_block":[],
@@ -98,6 +82,9 @@ def get_cache(ids):
     else:
       add(ids)
 
+def date_server_cache(ids):
+  return server_cache[ids]     
+
 ###########################################
 # Multi-linguagem settings
 ###########################################      
@@ -109,15 +96,6 @@ for i in os.listdir('./json/languages'):
       response = json.load(file)
     translate[i.strip('.json')] = response
 
-def get_lang_id(guild):
-  if guild in server_cache:
-   language = server_cache[guild]["language"]
-   try:
-     return language
-   except KeyError:
-     return'english'
-  else:  
-    return 'english'
 
 def get_lang(guild, cmd):
   if guild in server_cache:

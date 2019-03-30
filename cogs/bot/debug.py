@@ -10,9 +10,8 @@ import asyncio
 import json
 import sys
 import inspect
-from configs.config import config
-from configs.config import get_lang
-from configs.config import get_rank
+from configs.config import *
+
 
 ###########################################
 # Class reformulada

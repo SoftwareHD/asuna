@@ -94,7 +94,8 @@
 	                "example":["{prefixo}gs facebook"]
 },
 	"botinfo":{"description_embed":"Olá {}, este e o perfil da {} e nele contém algumas informações.",
-		       "title_embed":"informações da {}",
+		       "title_embed":"Informações da {}",
+		       "title_embed_2":"Status da {}",
 		       "created_by":"<:home_owner:558501952649035806> Criado por",
 		       "tag":"<:tag:556280026199359494> Tag",
 		       "ids":"<:123:556280026019004433> Id",
@@ -109,6 +110,7 @@
 		       "minute":"minuto",
 		       "hour":"hora",
 		       "second":"segundo",
+		       "update":"<:countdown:555852976720445443> Atualizado às",
 		       "title": ["botinfo"],
 	           "description":"Visualize às informações da **Asuna**.",
 	           "rank":"Rank 2+",
@@ -196,6 +198,8 @@
 
 
 
-	}	
+	},	
+    "events":{"member_join":"O usuário {} entrou!"
+    	           }
 
 }
