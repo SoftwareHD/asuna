@@ -12,7 +12,6 @@ Asuna é um bot do Discord que permite que você adicione facilmente seus própr
 através de um painel de fácil utilização. Mas este é apenas um dos inúmeros recursos que ela possui.
 
 
-
 ## Asuna usa & Ama ❤
 
 - [Discord.py rewrite](https://github.com/Rapptz/discord.py)
@@ -21,7 +20,7 @@ através de um painel de fácil utilização. Mas este é apenas um dos inúmero
 - [flask](http://flask.pocoo.org)
 - [Docker](https://www.docker.com/)
 
-## How to contribute !
+## Como ajudar?!
 
 Se você quiser criar um plugin ou comando para a **Asuna**, não hesite em entrar em contato comigo
 [Asuna Suporte](https://discord.gg/vsBUeWM) 😉.
