@@ -27,9 +27,13 @@ class roleinfo(commands.Cog):
     @commands.cooldown(1,10,commands.BucketType.user)
     @commands.guild_only()
     @commands.command()
-    async def ch(self, ctx, *, num=None):
+    async def roleinfo(self, ctx, *, num=None):
        if get_rank(ctx.author.id, list(ctx.author.guild_permissions), ctx.guild.id, ctx.channel.id) >=1:
           lang = get_lang(ctx.guild.id, "roleinfo")
+          if num is None:
+             embed = discord.Embed(description=str(lang['none_2']).format(ctx.author.name), color=0x7BCDE8)
+             await ctx.send(embed=embed)
+             return 
           if str(num).isdigit() == True:
             role = discord.utils.get(ctx.guild.roles, id=int(num))
           else:

@@ -29,6 +29,8 @@ class channelinfo(commands.Cog):
     @commands.command()
     async def channelinfo(self, ctx, *, num=None):
        if get_rank(ctx.author.id, list(ctx.author.guild_permissions), ctx.guild.id, ctx.channel.id) >=1:
+         if num is None:
+            num = ctx.channel.id
          lang = get_lang(ctx.guild.id, "channelinfo")
          if str(num).isdigit() == True:
            channel = discord.utils.get(ctx.guild.channels, id=int(num))

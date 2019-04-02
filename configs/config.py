@@ -23,7 +23,7 @@ with open('./json/configs/dados.json', encoding='utf-8') as json_dados:
 ###########################################
 
 try:
-  client = MongoClient(config["database"])
+  db = MongoClient(config["database"])
   print("[OK] - Conectado com sucesso ao database.")
 except Exception as e:
   print(f"[Exception] - Houve um erro na conexão\n[Erro] - {e}")
@@ -32,10 +32,23 @@ except Exception as e:
 # Database settings
 ###########################################
 
-servidor_status = client["raphtalia"]["guild"]
+servidor_status = db["raphtalia"]["guild"]
 
 def get_guild_insert(guild):
       data = {"_id":guild,
+              "welcome_channel":None,
+              "welcome_type":3,
+              "welcome_text":None,
+              "welcome_private":False,
+              "welcome_status":False,
+              "leave_channel":None,
+              "leave_type":3,
+              "leave_text":None,
+              "leave_status":False,
+              "autorole_role":None,
+              "autorole_status":False,
+              "suggestion_channel":None,
+              "suggestion_status":False,
               "guild_lock":False,
               "channel_lock":[],
               "user_block":[],
@@ -43,6 +56,7 @@ def get_guild_insert(guild):
               "language":"english"
 
               }
+
       servidor_status.insert_one(data).inserted_id
       return data
 
@@ -51,6 +65,7 @@ def get_guild_find(ids):
   if dados is None:
     return get_guild_insert(ids)
   return dados
+
 
 ###########################################
 # Cache
@@ -83,7 +98,22 @@ def get_cache(ids):
       add(ids)
 
 def date_server_cache(ids):
-  return server_cache[ids]     
+   try:
+     return server_cache[ids]     
+   except KeyError:
+     server_date(ids, get_guild_find(ids))
+     return server_cache[ids]
+
+def get_guild_update_func(ids, string, status):
+    servidor_status.update_one({"_id":ids},{"$set": {string:status}})
+    if ids in server_cache:
+       remove(ids)
+       time.sleep(1)
+       add(ids)
+    else:
+      add(ids)
+
+
 
 ###########################################
 # Multi-linguagem settings

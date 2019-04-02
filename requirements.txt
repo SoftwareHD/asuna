@@ -1,0 +1,9 @@
+git+https://github.com/Rapptz/discord.py@rewrite#egg=discord.py
+pytz
+pillow
+requests
+pymongo
+dnspython
+psutil
+requests
+bs4

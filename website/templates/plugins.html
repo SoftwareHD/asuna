@@ -12,5 +12,40 @@
 					</a>
 
 
-		</div>
+				<a href="{{url_for('dashboard_leave', server_id=guild['id'])}}" class="list-group-item">
+					{% if guild_db['leave_status'] == True%}
+
+					<span class="badge" style="background-color: #43AC6A; color: #fff;">Ativado</span>
+					{%else%}
+					<span class="badge" style="background-color: #F04124; color: #fff;">Desativado</span>
+					{%endif%}
+					<h4 class="list-group-item-heading"><i class="fa fa-sign-out" aria-hidden="true"></i> Saida membros</h4>
+					</a>
+
+
+		</div>		
+</div>
+<div class="col-md-4">
+	<h3><i class="fa fa-hashtag" aria-hidden="true"></i> Outros</h3>
+	<div class="list-group">
+				<a href="{{url_for('dashboard_autorole', server_id=guild['id'])}}" class="list-group-item">
+					{% if guild_db['autorole_status'] == True%}
+
+					<span class="badge" style="background-color: #43AC6A; color: #fff;">Ativado</span>
+					{%else%}
+					<span class="badge" style="background-color: #F04124; color: #fff;">Desativado</span>
+					{%endif%}
+					<h4 class="list-group-item-heading"><i class="fa fa-user-plus" aria-hidden="true"></i> Auto role</h4>
+					</a>
+				<a href="{{url_for('dashboard_suggestion', server_id=guild['id'])}}" class="list-group-item">
+					{% if guild_db['suggestion_status'] == True%}
+
+					<span class="badge" style="background-color: #43AC6A; color: #fff;">Ativado</span>
+					{%else%}
+					<span class="badge" style="background-color: #F04124; color: #fff;">Desativado</span>
+					{%endif%}
+					<h4 class="list-group-item-heading"><i class="fa fa-plus-square" aria-hidden="true"></i> Sugestão</h4>
+					</a>
+
+		</div>		
 </div>

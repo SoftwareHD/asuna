@@ -8,7 +8,7 @@
 
       <div class="col-md-8">
 
-          {% if guild_db['welcome_status'] == True %}
+          {% if guild_db['leave_status'] == True %}
             
                 {% if sts == True%}
 
@@ -17,46 +17,47 @@
                   {%endif%}
 
           
-          <h3><i class="fa fa-sign-in" aria-hidden="true"></i> Bem vindo(a)</h3>
-              <form id="welcome" method="POST" action="{{url_for('update_welcome', server_id=guild['id'])}}">
+          <h3><i class="fa fa-sign-out" aria-hidden="true"></i> Adeus</h3>
+              <form id="leave" method="POST" action="{{url_for('update_leave', server_id=guild['id'])}}">
             <div class="form-group">
-              <label class="control-label" for="welcome_message">Messagem</label>
-              {% if guild_db['welcome_text'] == None%}
-                    <textarea class="form-control input-lg welcome_message" name="welcome_message" id="welcome_message">Olá {user_mention}, seja bem vindo(a) ao servidor {server_name}.</textarea>
+              <label class="control-label" for="leave_message">Messagem</label>
+              {% if guild_db['leave_text'] == None%}
+                    <textarea class="form-control input-lg leave_message" name="leave_message" id="leave_message">O {user_mention}, saiu do {server_name}.</textarea>
 
                   {%else%}
-                  <textarea class="form-control input-lg welcome_message" name="welcome_message" id="welcome_message">{{ guild_db['welcome_text'] }}</textarea>
+                  <textarea class="form-control input-lg leave_message" name="leave_message" id="leave_message">{{ guild_db['leave_text'] }}</textarea>
                   {%endif%}
       
               <div class="well well-sm">
-                <strong>Exemplo: </strong> Olá {user_mention}, seja bem vindo(a) ao servidor {server_name}.
+                <strong>Exemplo: </strong> O {user_mention}, saiu do {server_name}.
               </div>
 
               <label class="control-label" for="channel_name">Tipo de mensagem</label>
               <select class="input-lg form-control" name="type">
-                  <option value="3"{%if guild_db['welcome_type'] == "3" %} selected{%endif%}>Imagem</option>
-                  <option value="2"{%if guild_db['welcome_type'] == "2" %} selected{%endif%}>Embed</option>
-                  <option value="1"{%if guild_db['welcome_type'] == "1" %} selected{%endif%}>Texto</option>
+                  <option value="3"{%if guild_db['leave_type'] == "3" %} selected{%endif%}>Imagem</option>
+                  <option value="2"{%if guild_db['leave_type'] == "2" %} selected{%endif%}>Embed</option>
+                  <option value="1"{%if guild_db['leave_type'] == "1" %} selected{%endif%}>Texto</option>
               </select>
               <label class="control-label" for="channel_name">Canal da messagem</label>
               <select class="input-lg form-control" name="channel">
-                  <option value="None"{%if guild_db['welcome_channel'] == None %} selected{%endif%}>#Não definido</option>
+                  <option value="None"{%if guild_db['leave_channel'] == None %} selected{%endif%}>#Não definido</option>
                   {% for channel in channels %}
-                  <option value="{{channel.id}}"{%if channel.id == guild_db['welcome_channel'] %} selected{%endif%}>#{{channel.name}}</option>
-                {% endfor %}    
+                  <option value="{{channel.id}}"{%if channel.id == guild_db['leave_channel'] %} selected{%endif%}>#{{channel.name}}</option>
+                  {% endfor %}    
               </select>
               <br>
 
+
           {%else%}
           <h3>Desejas ativar o modulo?</h3>
-          <form id="welcome" method="POST" action="{{url_for('update_welcome', server_id=guild['id'])}}">
+          <form id="leave" method="POST" action="{{url_for('update_leave', server_id=guild['id'])}}">
           <button type="submit" class="btn btn-success" name="btn" value="ligar">Ativar</button>
           <button type="submit" class="btn btn-danger" name="btn" value="desligar">Desativar</button>
 
           {%endif%} 
 
 
-                {% if guild_db['welcome_status'] == True%}
+                {% if guild_db['leave_status'] == True%}
 
               <button type="submit" class="btn btn-primary" name="btn" value="atualizar">Atualizar</button>
               <button type="submit" class="btn btn-primary" name="btn" value="resetar">Resetar</button>

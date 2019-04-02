@@ -38,6 +38,14 @@ def get_guild_insert(guild):
               "welcome_text":None,
               "welcome_private":False,
               "welcome_status":False,
+              "leave_channel":None,
+              "leave_type":3,
+              "leave_text":None,
+              "leave_status":False,
+              "autorole_role":None,
+              "autorole_status":False,
+              "suggestion_channel":None,
+              "suggestion_status":False,
               "guild_lock":False,
               "channel_lock":[],
               "user_block":[],
@@ -56,6 +64,9 @@ def get_guild_find(ids):
 
 def get_guild_update_welcome(ids, welcome_channel, welcome_type, welcome_text,welcome_private, welcome_status):
     servidor_status.update_many({"_id":ids},{"$set": {"welcome_channel":welcome_channel,"welcome_type":welcome_type, "welcome_text":welcome_text,"welcome_private":welcome_private,"welcome_status":welcome_status}})
+
+def get_guild_update_leave(ids, leave_channel, leave_type, leave_text, leave_status):
+    servidor_status.update_many({"_id":ids},{"$set": {"leave_channel":leave_channel,"leave_type":leave_type, "leave_text":leave_text,"leave_status":leave_status}})
 
 def get_guild_update_func(ids, string, status):
     servidor_status.update_one({"_id":ids},{"$set": {string:status}})

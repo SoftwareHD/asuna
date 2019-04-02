@@ -74,7 +74,7 @@ def get_invite_link(bot, guild, redirect):
 def get_date_guild(server_id):
    members = get_guild_members(server_id)    
    channels = get_guild_channels(server_id)    
-   roles = get_guild_channels(server_id)  
+   roles = get_guild_roles(server_id)  
    lista = {"members":len(members),"channels":len(channels), "roles":len(roles)}
    return lista  
 

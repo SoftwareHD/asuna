@@ -33,7 +33,7 @@ class debug(commands.Cog):
        if get_rank(ctx.author.id, list(ctx.author.guild_permissions), ctx.guild.id, ctx.channel.id) == 7:
         lang = get_lang(ctx.guild.id, "debug")
         if args is None:
-           embed = discord.Embed(description=lang['debug_none'].format(ctx.author.mention), color=0x7BCDE8)
+           embed = discord.Embed(description=lang['debug_none'].format(ctx.author.name), color=0x7BCDE8)
            await ctx.send(embed=embed)
            return  
         
