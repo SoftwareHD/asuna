@@ -92,7 +92,6 @@ class status_asuna(commands.Cog):
           embed.add_field(name=str(lang["ping"]), value = '``{0:.2f}ms``'.format(self.client.latency * 1000), inline=True)
           embed.add_field(name=str(lang["prefix"]), value = '``'+str(get_prefix(server.id))+'``', inline=True)
           embed.add_field(name=str(lang["update"]), value = '``'+str(time)+'``', inline=True)
-
           embed.set_footer(text=self.client.user.name+" © 2019", icon_url=self.client.user.avatar_url_as())
           await message.edit(embed=embed)
           await asyncio.sleep(3600)

@@ -35,7 +35,7 @@
 					{%else%}
 					<span class="badge" style="background-color: #F04124; color: #fff;">Desativado</span>
 					{%endif%}
-					<h4 class="list-group-item-heading"><i class="fa fa-user-plus" aria-hidden="true"></i> Auto role</h4>
+					<h4 class="list-group-item-heading"><i class="fa fa-plus-circle" aria-hidden="true"></i> Auto role</h4>
 					</a>
 				<a href="{{url_for('dashboard_suggestion', server_id=guild['id'])}}" class="list-group-item">
 					{% if guild_db['suggestion_status'] == True%}
@@ -46,6 +46,14 @@
 					{%endif%}
 					<h4 class="list-group-item-heading"><i class="fa fa-plus-square" aria-hidden="true"></i> Sugestão</h4>
 					</a>
+				<a href="{{url_for('dashboard_membercount', server_id=guild['id'])}}" class="list-group-item">
+					{% if guild_db['suggestion_status'] == True%}
 
+					<span class="badge" style="background-color: #43AC6A; color: #fff;">Ativado</span>
+					{%else%}
+					<span class="badge" style="background-color: #F04124; color: #fff;">Desativado</span>
+					{%endif%}
+					<h4 class="list-group-item-heading"><i class="fa fa-user-plus" aria-hidden="true"></i> Contador de membros</h4>
+					</a>
 		</div>		
 </div>

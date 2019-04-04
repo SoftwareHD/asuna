@@ -37,19 +37,26 @@ class on_message(commands.Cog):
 
     @commands.Cog.listener()
     async def on_member_remove(self, member):
-        if member == self.client.user:
-            return
+       if member == self.client.user:
+          return
+       try:
         guild_db = date_server_cache(member.guild.id)
         lang = get_lang(member.guild.id, "events")
         if guild_db["leave_type"] == "1":
+           if guild_db["leave_status"] == False:
+              return 
            if guild_db["leave_channel"] == None:
               return 
            if guild_db["leave_text"] == None:
               return
            channel = discord.utils.get(member.guild.channels, id=int(guild_db["leave_channel"]))
+           if channel is None:
+               return
            await channel.send(guild_db["leave_text"])
 
         if guild_db["leave_type"] == "2":
+           if guild_db["leave_status"] == False:
+              return 
            if guild_db["leave_channel"] == None:
               return 
            if guild_db["leave_text"] == None:
@@ -60,8 +67,12 @@ class on_message(commands.Cog):
            embed.set_thumbnail(url=member.avatar_url)
            embed.set_footer(text=self.client.user.name+" © 2019", icon_url=self.client.user.avatar_url_as())
            channel = discord.utils.get(member.guild.channels, id=int(guild_db["leave_channel"]))
+           if channel is None:
+              return
            await channel.send(embed=embed,content=member.mention)
         if guild_db["leave_type"] == "3":           
+           if guild_db["leave_status"] == False:
+              return 
            if guild_db["leave_channel"] == None:
               return 
            if guild_db["leave_text"] == None:
@@ -100,7 +111,11 @@ class on_message(commands.Cog):
            embed = discord.Embed(color=0x7BCDE8)
            embed.set_image(url="attachment://leave.png")
            channel = discord.utils.get(member.guild.channels, id=int(guild_db["leave_channel"]))
+           if channel is None:
+               return
            await channel.send(file=arquivo, embed=embed, content=member.mention)
+       except Exception as e:
+           print(e)
 
 
 

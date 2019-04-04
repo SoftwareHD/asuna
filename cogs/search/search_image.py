@@ -50,22 +50,23 @@ class ping(commands.Cog):
              query = f"{args} pt-br"
           else:
             query = f"{args}"             
-            params = {"q": query, "safe": safe}
-            headers = {"User-Agent": config["user_agent"]}
-            r = requests.get(str(config["url_google_image"]).replace("{search}",str(query).replace(" ","%20")), params=params, headers=headers)
-            soup = bs4.BeautifulSoup(r.text, "html.parser")
-            list = []
-            for a in soup.find_all("div",{"class":"rg_meta"}):
-                gga = json.loads(a.text)["ou"]
-                list.append(gga)
-            embed = discord.Embed(description=str(lang["find"]).format(args.title()),colour=0x7BCDE8)
-            embed.set_author(name=str(lang["gis"]), icon_url=ctx.author.avatar_url_as())
-            embed.set_footer(text=self.client.user.name+" © 2019", icon_url=self.client.user.avatar_url_as())
-            paginator = Paginator(ctx, pages=list[:50], page_count=True, embed=embed)
-            await paginator.run()
+          params = {"q": query, "safe": safe}
+          headers = {"User-Agent": config["user_agent"]}
+          r = requests.get(str(config["url_google_image"]).replace("{search}",str(query).replace(" ","%20")), params=params, headers=headers)
+          soup = bs4.BeautifulSoup(r.text, "html.parser")
+          list = []
+          for a in soup.find_all("div",{"class":"rg_meta"}):
+              gga = json.loads(a.text)["ou"]
+              list.append(gga)
+          embed = discord.Embed(description=str(lang["find"]).format(args.title()),colour=0x7BCDE8)
+          embed.set_author(name=str(lang["gis"]), icon_url=ctx.author.avatar_url_as())
+          embed.set_footer(text=self.client.user.name+" © 2019", icon_url=self.client.user.avatar_url_as())
+          paginator = Paginator(ctx, pages=list[:50], page_count=True, embed=embed)
+          await paginator.run()
         except Exception as error:
-                embed = discord.Embed(description=str(lang["not_find"]).format(args.title()),colour=0x7BCDE8)
-                await ctx.send(embed = embed) 
+            print(error)
+            embed = discord.Embed(description=str(lang["not_find"]).format(args.title()),colour=0x7BCDE8)
+            await ctx.send(embed = embed) 
        else:
          await ctx.message.add_reaction(config["emoji"]["cadeado"])
 

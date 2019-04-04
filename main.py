@@ -29,7 +29,14 @@ client = AutoShardedBot(command_prefix=prefix, case_insensitive=config["case_ins
 async def on_ready():
   print(f"[OK] - {client.user.name} ({client.user.id}) conectada ao discord.")
   await client.change_presence(activity=discord.Streaming(name=config['prefix_default']+"help", url="https://www.twitch.tv/yuka"))
-
+#  dblpy  = dbl.Client(client, config["token_dbl"])
+#  while True:
+#      try:
+#          await dblpy.http.post_server_count(client.user.id, len(client.guilds), None, None)
+#      except Exception as e:
+#
+#          print(e)
+#      await asyncio.sleep(1800)
 ###########################################
 # Leitura de modulos & Token
 ###########################################
@@ -44,7 +51,7 @@ if __name__ == '__main__':
      print(f"[Erro] - O modulo {modulo} não foi carregado.\n[Erro] - {e}")
   
   try:
-    client.run(config["token"])
+    client.run(config['token'])
   except Exception as e:
      print(f"[Erro] - O não foi possivel conectar ao discord.\n[Erro] - {e}")
 

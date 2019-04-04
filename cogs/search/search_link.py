@@ -34,7 +34,7 @@ class ping(commands.Cog):
     @commands.command(aliases=["link","gs"])
     async def google_link(self,ctx, *, args=None):
        if get_rank(ctx.author.id, None, ctx.guild.id, ctx.channel.id) >=1:
-        lang = get_lang(ctx.guild.id, "google_link")
+        lang = get_lang(ctx.guild.id, "gs")
         lang_id = date_server_cache(ctx.guild.id)['language']
         if args is None:
            embed = discord.Embed(description=str(lang['search_none']).format(ctx.author.mention), color=0x7BCDE8)

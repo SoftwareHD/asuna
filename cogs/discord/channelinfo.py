@@ -72,6 +72,8 @@ class channelinfo(commands.Cog):
            embed.add_field(name=lang['slow'], value = "``"+str(valor)+"``", inline=True)
            if channel.topic is None:
               topic = lang["not_defined"]
+           elif channel.topic == "":
+              topic = lang["not_defined"]   
            else:
              topic = channel.topic
            embed.add_field(name=lang['topic'], value = "``"+str(topic[:1024])+"``", inline=True)          

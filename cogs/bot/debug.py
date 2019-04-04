@@ -12,7 +12,6 @@ import sys
 import inspect
 from configs.config import *
 
-
 ###########################################
 # Class reformulada
 ###########################################
@@ -24,7 +23,6 @@ class debug(commands.Cog):
 ###########################################
 # Comando com (cooldown, only guild)
 ###########################################
-
 
     @commands.cooldown(1,1,commands.BucketType.user)
     @commands.guild_only()

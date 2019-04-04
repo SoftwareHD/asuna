@@ -8,6 +8,7 @@ import os
 from pymongo import MongoClient
 import pymongo
 import discord
+import asyncio
 
 timecache=dict()
 
@@ -49,6 +50,8 @@ def get_guild_insert(guild):
               "autorole_status":False,
               "suggestion_channel":None,
               "suggestion_status":False,
+              "membercount_channel":None,
+              "membercount_status":False,
               "guild_lock":False,
               "channel_lock":[],
               "user_block":[],

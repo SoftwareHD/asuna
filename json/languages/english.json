@@ -48,7 +48,7 @@
 	        "example":["{prefixo}userinfo", "{prefixo}userinfo @usuário"]
 	        },
 	"on_message":{"wait_little":"<:countdown:555852976720445443> **|** Hello {}, wait a minute, you're mentioning me too fast.",
-		          "prefix_warn":["<:question:555852267840864497> **|** Hi {member_mention}, my prefix is {prefix}.","<:question:555852267840864497> **|** Hey, you need some help? then type {prefix} help to know more about me."]
+		          "prefix_warn":["<:question:555852267840864497> **|** Hi {member_mention}, my prefix is {prefix}.","<:question:555852267840864497> **|** Hey, you need some help? then type {prefix}help to know more about me."]
 	              },
 	"serverinfo":{
 		          "description_embed":"Hello {}, this and the server profile {} and contains some information.",
@@ -119,7 +119,7 @@
 	           "example":["{prefixo}botinfo"]
 		   },
 
-    "channelinfo":{"description_embed":"Hello Yuka, this is the {} channel information.",
+    "channelinfo":{"description_embed":"Hello {}, this is the {} channel information.",
     	           "author":"Channelinfo",
     	           "text":"Text",
     	           "voice":"Audio",
@@ -198,7 +198,8 @@
 	            "example":["{prefixo}roleinfo @mention_role"]
 
 	},	
-    "events":{"member_join":"The user {} joined!"
+    "events":{"member_join":"The user {} joined!",
+    	      "member_count":"<:asuna_blue:563054492849799232> **| Members** : {}"
     },
     "help":{"description_embed":"Hello {}, this is the {} help profile and it contains all the commands, and it will have some functions in your [website]({}).",
     	    "description_embed_2":"Hello {}, this is the information profile of the {} command.",

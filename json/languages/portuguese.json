@@ -200,7 +200,8 @@
 
 
 	},	
-    "events":{"member_join":"O usuário {} entrou!"},
+    "events":{"member_join":"O usuário {} entrou!",
+        	  "member_count":"<:asuna_blue:563054492849799232> **| Membros** : {}"},
     "help":{"description_embed":"Olá {}, este é o perfil de ajuda da {} e nele contém todo os comandos, é terá alguma funções em seu [site]({}).",
     	    "description_embed_2":"Olá {}, este é o perfil de informações do comando {}.",
     	    "title_embed":"Ajuda ao usuário",

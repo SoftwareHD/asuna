@@ -37,29 +37,40 @@ class on_message(commands.Cog):
 
     @commands.Cog.listener()
     async def on_member_join(self, member):
-        if member == self.client.user:
-            return
+       if member == self.client.user:
+          return
+       try:
         guild_db = date_server_cache(member.guild.id)
         lang = get_lang(member.guild.id, "events")
         if guild_db["welcome_type"] == "1":
+           if guild_db["welcome_status"] == False:
+              return 
            if guild_db["welcome_channel"] == None:
               return 
            if guild_db["welcome_text"] == None:
               return
            if guild_db["welcome_private"] == False:
             channel = discord.utils.get(member.guild.channels, id=int(guild_db["welcome_channel"]))
+            if channel is None:
+               return
             await channel.send(guild_db["welcome_text"])
            elif guild_db["welcome_private"] == True:
              try:
               channel = discord.utils.get(member.guild.members, id=int(member.id))
+              if channel is None:
+                 return
               await channel.send(guild_db["welcome_text"])
              except:
                 pass
            else:
              channel = discord.utils.get(member.guild.channels, id=int(guild_db["welcome_channel"]))
+             if channel is None:
+                return
              await channel.send(guild_db["welcome_text"])
 
         if guild_db["welcome_type"] == "2":
+           if guild_db["welcome_status"] == False:
+              return 
            if guild_db["welcome_channel"] == None:
               return 
            if guild_db["welcome_text"] == None:
@@ -71,18 +82,25 @@ class on_message(commands.Cog):
            embed.set_footer(text=self.client.user.name+" © 2019", icon_url=self.client.user.avatar_url_as())
            if guild_db["welcome_private"] == False:
             channel = discord.utils.get(member.guild.channels, id=int(guild_db["welcome_channel"]))
+            if channel is None:
+               return
             await channel.send(embed=embed,content=member.mention)
            elif guild_db["welcome_private"] == True:
              try:
               channel = discord.utils.get(member.guild.members, id=int(member.id))
+              if channel is None:
+                 return
               await channel.send(embed=embed,content=member.mention)
              except:
                 pass
            else:
              channel = discord.utils.get(member.guild.channels, id=int(guild_db["welcome_channel"]))
+             if channel is None:
+                return
              await channel.send(embed=embed,content=member.mention)
         if guild_db["welcome_type"] == "3":
-           
+           if guild_db["welcome_status"] == False:
+              return 
            if guild_db["welcome_channel"] == None:
               return 
            if guild_db["welcome_text"] == None:
@@ -122,19 +140,24 @@ class on_message(commands.Cog):
            embed.set_image(url="attachment://welcome.png")
            if guild_db["welcome_private"] == False:
             channel = discord.utils.get(member.guild.channels, id=int(guild_db["welcome_channel"]))
+            if channel is None:
+               return
             await channel.send(file=arquivo, embed=embed, content=member.mention)
            elif guild_db["welcome_private"] == True:
              try:
               channel = discord.utils.get(member.guild.members, id=int(member.id))
+              if channel is None:
+                 return
               await channel.send(file=arquivo, embed=embed, content=member.mention)
              except:
                 pass
            else:
-             channel = discord.utils.get(member.guild.channels, id=int(guild_db["welcome_channel"]))
-             await channel.send(file=arquivo, embed=embed, content=member.mention)
-
-
-
+            channel = discord.utils.get(member.guild.channels, id=int(guild_db["welcome_channel"]))
+            if channel is None:
+               return             
+            await channel.send(file=arquivo, embed=embed, content=member.mention)
+       except Exception as e:
+           print(e)
 # Função leitura do cog
 ###########################################
 

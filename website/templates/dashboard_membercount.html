@@ -1,0 +1,73 @@
+{% extends 'dash_base.html' %}
+{% block dash_content %}
+<style>
+
+
+</style>
+  <div class="container">
+    <div class="row">
+       {% include 'back.html' %}
+
+
+      <div class="col-md-8">
+
+          {% if guild_db['membercount_status'] == True %}
+            
+                {% if sts == True%}
+
+                <div class="well well-sm">Status : Atualizado com sucesso!</div>
+                  {%else%}
+                  {%endif%}
+
+          
+          <h3><i class="fa fa-user-plus" aria-hidden="true"></i> Contador de membros</h3>
+              <form id="membercount" method="POST" action="{{url_for('update_membercount', server_id=guild['id'])}}">
+            <div class="form-group">
+              <label class="control-label" for="channel">Canal do contador</label>
+              <select class="input-lg form-control" name="channel_id">
+
+                  <option value="None"{%if guild_db['membercount_channel'] == None %} selected{%endif%}>Não definido</option>
+                  {% for channel in channels %}
+                      <option value="{{channel.id}}"{%if channel.id == guild_db['membercount_channel'] %} selected{%endif%}>{{channel.name}}</option>
+
+                  {% endfor %}    
+              </select>
+              <div class="well well-sm">
+                <strong>Aviso: </strong> A <strong>Asuna</strong> precisará a permissão <strong>Gerenciar canais</strong> no servidor para funcionar.. caso não tenha a permissão irá ignorar.
+              </div>
+
+              <br>
+
+
+          {%else%}
+          <h3>Desejas ativar o modulo?</h3>
+          <form id="membercount" method="POST" action="{{url_for('update_membercount', server_id=guild['id'])}}">
+          <button type="submit" class="btn btn-success" name="btn" value="ligar">Ativar</button>
+          <button type="submit" class="btn btn-danger" name="btn" value="desligar">Desativar</button>
+
+          {%endif%} 
+
+
+              {% if guild_db['membercount_status'] == True%}
+
+              <button type="submit" class="btn btn-primary" name="btn" value="atualizar">Atualizar</button>
+              <button type="submit" class="btn btn-primary" name="btn" value="resetar">Resetar</button>
+              <button type="submit" class="btn btn-danger" name="btn" value="desligar">Desativar</button>
+
+                  {%else%}
+                  {%endif%} 
+  
+
+            </div>
+          </form>
+        </div>
+
+    </div>
+  </div>
+
+  <script src="{{url_for('static', filename='js/mention.js')}}"></script>
+  <script src="{{url_for('static', filename='js/bootstrap-typeahead.js')}}"></script>
+  <link href="{{url_for('static', filename='css/recommended-styles.css')}}" rel="stylesheet">
+  </div>
+
+{% endblock %}
