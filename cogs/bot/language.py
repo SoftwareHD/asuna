@@ -44,12 +44,12 @@ class language(commands.Cog):
         try:
             reaction, user = await self.client.wait_for('reaction_add', timeout=60.0, check=check)
             if str(reaction.emoji) == "🇺🇸":
-               get_guild_update_func(ctx.guild.id, "language", "english")
+               get_guild_update_func(ctx.guild.id,"config.language","english")
                embed = discord.Embed(description=lang['language_english'].format(ctx.author.name), color=0x7BCDE8)
                await msg.clear_reactions()
                await msg.edit(embed=embed)
             if str(reaction.emoji) == "🇧🇷":
-               get_guild_update_func(ctx.guild.id, "language", "portuguese")
+               get_guild_update_func(ctx.guild.id,"config,language","portuguese")
                embed = discord.Embed(description=lang['language_portuguese'].format(ctx.author.name), color=0x7BCDE8)
                await msg.clear_reactions()
                await msg.edit(embed=embed)

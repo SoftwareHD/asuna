@@ -1,0 +1,99 @@
+{% extends 'dash_base.html' %}
+{% block dash_content %}
+
+  <div class="container">
+    <div class="row">
+       {% include 'back.html' %}
+
+
+      <div class="col-md-8">
+
+          {% if guild_db['status'] == True %}
+            
+                {% if sts == True%}
+
+                <div class="well well-sm">Status : Atualizado com sucesso!</div>
+                  {%else%}
+                  {%endif%}
+
+          
+          <h3><i class="fa fa-sign-in" aria-hidden="true"></i> Bem vindo(a)</h3>
+              <form id="welcome" method="POST" action="{{url_for('update_welcome', server_id=guild['id'])}}">
+            <div class="form-group">
+              <label class="control-label" for="message">Messagem</label>
+                  <textarea class="form-control input-lg message" name="message" id="message">{{ guild_db['text'] }}</textarea>
+                  <div class="well well-sm">
+                  <details ontoggle="myFunction()">
+                  <summary>Quais são as variáveis/placeholders que eu posso usar?</summary>
+                  <font size="2"><br><br>
+                  <strong>Exemplo : </strong> Olá <strong>{user.mention}</strong>, seja bem vindo ao <strong>{guild.name}.</strong><br><br>
+
+                  <strong>{user}</strong> : Mostra a tag do usuário que provocou a ação <strong>(ex: Asuna#0001)</strong><br>
+                  <strong>{user.name}</strong> : Mostra a nome do usuário que provocou a ação <strong>(ex: Asuna)</strong><br>
+                  <strong>{user.discriminator}</strong> : Mostra o discriminator do usuário que provocou a ação <strong>(ex: #0001)</strong><br>
+                  <strong>{user.mention}</strong> : Menciona o usuário que provocou a ação <strong>(ex: @Asuna)</strong><br>
+                  <strong>{user.avatar_url}</strong> : Mostra a URL do avatar do usuário <strong>(ex: https://etc)</strong><br>
+                  <strong>{user.id}</strong> : Mostra o ID do usuário que provocou a ação <strong>(ex: 513037350562037771)</strong><br>
+                  <strong>{guild.name}</strong> : Mostra o nome do servidor que a ação aconteceu <strong>(ex: Projeto Asuna)</strong><br>
+                  <strong>{guild.id}</strong> : Mostra o id do servidor que a ação aconteceu <strong>(ex: 551915138156855306)</strong><br>
+                  <strong>{guild.icon_url}</strong> : Mostra a URL do servidor que a ação aconteceu <strong>(ex: https://etc)</strong><br>
+                  <strong>{guild.member_count}</strong> : Mostra a quantidade de membros no servidor que a ação aconteceu <strong>(ex: 500)</strong><br></font>
+
+                  <script>
+                   function myFunction() {
+                   }
+                   </script>              
+                 </div>
+
+
+        
+
+              <label class="control-label" for="channel_name">Tipo de mensagem</label>
+              <select class="input-lg form-control" name="type">
+                  <option value="None"{%if guild_db['type'] == None %} selected{%endif%}>Não definido</option>
+                  <option value="3"{%if guild_db['type'] == "3" %} selected{%endif%}>Imagem</option>
+                  <option value="2"{%if guild_db['type'] == "2" %} selected{%endif%}>Embed</option>
+                  <option value="1"{%if guild_db['type'] == "1" %} selected{%endif%}>Texto</option>
+              </select>
+              <label class="control-label" for="channel_name">Canal da messagem</label>
+              <select class="input-lg form-control" name="channel">
+                  <option value="None"{%if guild_db['channel'] == None %} selected{%endif%}>#Não definido</option>
+                  {% for channel in channels %}
+                  <option value="{{channel.id}}"{%if channel.id == guild_db['channel'] %} selected{%endif%}>#{{channel.name}}</option>
+                {% endfor %}    
+              </select>
+              <br>
+
+          {%else%}
+          <h3>Desejas ativar o modulo?</h3>
+          <form id="welcome" method="POST" action="{{url_for('update_welcome', server_id=guild['id'])}}">
+          <button type="submit" class="btn btn-success" name="btn" value="ligar">Ativar</button>
+          <button type="submit" class="btn btn-danger" name="btn" value="desligar">Desativar</button>
+
+          {%endif%} 
+
+
+                {% if guild_db['status'] == True%}
+
+              <button type="submit" class="btn btn-primary" name="btn" value="atualizar">Atualizar</button>
+              <button type="submit" class="btn btn-primary" name="btn" value="resetar">Resetar</button>
+              <button type="submit" class="btn btn-danger" name="btn" value="desligar">Desativar</button>
+
+                  {%else%}
+                  {%endif%} 
+  
+
+            </div>
+          </form>
+        </div>
+
+    </div>
+  </div>
+
+  <script src="{{url_for('static', filename='js/mention.js')}}"></script>
+  <script src="{{url_for('static', filename='js/bootstrap-typeahead.js')}}"></script>
+  <link href="{{url_for('static', filename='css/recommended-styles.css')}}" rel="stylesheet">
+    </div>
+  </div>
+
+{% endblock %}

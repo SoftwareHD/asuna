@@ -1,0 +1,147 @@
+{% extends 'dash_base.html' %}
+{% block dash_content %}
+
+<style>
+  div.fixed_1 {
+    position: fixed;
+    bottom: 200px;
+    right: 517px;
+    width: 300px;
+  }
+  div.fixed_2 {
+    position: fixed;
+    bottom: 200px;
+    right: 377px;
+    width: 300px;
+  }
+  div.fixed_3 {
+    position: fixed;
+    bottom: 200px;
+    right: 237px;
+    width: 300px;
+  }
+div.fixed_4 {
+    position: fixed;
+    bottom: 200px;
+    right: 90px;
+    width: 300px;
+  }   
+  div.fixed_buttun {
+    position: fixed;
+    bottom: 145px;
+    right: 517px;
+    width: 300px;
+  }      
+</style>
+
+  <div class="container">
+    <div class="row">
+       {% include 'back.html' %}
+
+
+      <div class="col-md-8">
+
+          {% if guild_db['status'] == True %}
+            
+                {% if sts == True%}
+
+                <div class="well well-sm">Status : Atualizado com sucesso!</div>
+                  {%else%}
+                  {%endif%}
+
+ 
+          <h3><i class="fa fa-gavel" aria-hidden="true"></i> Modlogs</h3>
+              <form id="modlog" method="POST" action="{{url_for('update_modlog', server_id=guild['id'])}}">
+            <div class="form-group"> 
+
+              <label class="control-label" for="channel_name">Canal da messagem</label>
+              <select class="input-lg form-control" name="channel_id">
+
+                  <option value="None"{%if guild_db['channel'] == None %} selected{%endif%}>Não definido</option>
+                  {% for channel in channels %}
+                      <option value="{{channel.id}}"{%if channel.id == guild_db['channel'] %} selected{%endif%}>{{channel.name}}</option>
+
+                  {% endfor %}    
+              </select>
+              <div class="well well-sm">
+                <strong>Aviso: </strong> A <strong>Asuna</strong> precisará a permissão <strong>Enviar embed</strong> no servidor para funcionar.. caso não tenha a permissão irá ignorar.
+              </div>
+              <h3><i class="fa fa-comments"></i> Eventos</h3>
+              <br>
+              <div class="checkbox">
+               <div class="fixed_1">             
+                <label><input type="checkbox" name="modlog_user_ban" {% if guild_db['user_ban'] == True %}checked{% endif %}> Usuário banido</label><br>
+                <label><input type="checkbox" name="modlog_user_unban" {% if guild_db['user_unban'] == True %}checked{% endif %}> Usuário desbanido</label><br>
+                <label><input type="checkbox" name="modlog_user_kick" {% if guild_db['user_kick'] == True %}checked{% endif %}> Usuário kickado</label><br>
+                <label><input type="checkbox" name="modlog_user_mute" {% if guild_db['user_mute'] == True %}checked{% endif %}> Usuário mutado</label><br>
+                <label><input type="checkbox"disabled> Sem evento</label><br>
+
+              <div class="fixed_2">
+                <label><input type="checkbox" name="modlog_role_create" {% if guild_db['role_create'] == True %}checked{% endif %}> Cargo criado</label><br>
+                <label><input type="checkbox" name="modlog_role_delete" {% if guild_db['role_delete'] == True %}checked{% endif %}> Cargo excluído</label><br>
+                <label><input type="checkbox" name="modlog_role_update" {% if guild_db['role_update'] == True %}checked{% endif %}> Cargo atualizado</label><br>
+                <label><input type="checkbox" name="modlog_role_add" {% if guild_db['role_add'] == True %}checked{% endif %}> Cargo adicionado</label><br>
+                <label><input type="checkbox" name="modlog_role_remove" {% if guild_db['role_remove'] == True %}checked{% endif %}> Cargo removido</label><br>
+              <div class="fixed_3">
+                <label><input type="checkbox" name="modlog_channel_create" {% if guild_db['channel_create'] == True %}checked{% endif %}> Canal criado</label><br>
+                <label><input type="checkbox" name="modlog_channel_delete" {% if guild_db['role_delete'] == True %}checked{% endif %}> Canal excluído</label><br>
+                <label><input type="checkbox" name="modlog_message_edit" {% if guild_db['message_edit'] == True %}checked{% endif %}> Mensagem editada</label><br>
+                <label><input type="checkbox" name="modlog_message_delete" {% if guild_db['message_delete'] == True %}checked{% endif %}> Mensagem apagada</label><br>
+                <label><input type="checkbox" name="modlog_message_am" {% if guild_db['message_am'] == True %}checked{% endif %}> Mensagem (a.m)</label><br>
+             <div class="fixed_4">
+                  <label><input type="checkbox" name="modlog_update_username" {% if guild_db['update_username'] == True %}checked{% endif %}> Alteração usuário</label><br>
+                  <label><input type="checkbox" name="modlog_update_nickname" {% if guild_db['update_nickname'] == True %}checked{% endif %}> Alteração apelido</label><br>
+                  <label><input type="checkbox" name="modlog_update_avatar" {% if guild_db['update_avatar'] == True %}checked{% endif %}> Alteração avatar</label><br>
+                  <label><input type="checkbox" name="modlog_emoji_create" {% if guild_db['emoji_create'] == True %}checked{% endif %}> Emoji criado</label><br>
+                  <label><input type="checkbox" name="modlog_emoji_delete" {% if guild_db['emoji_delete'] == True %}checked{% endif %}> Emoji excluído</label><br>
+
+                
+                </div>
+           
+              
+              </div>
+
+
+                </div>
+                </div>
+
+              
+              </div>
+              <br>
+
+
+          {%else%}
+          <h3>Desejas ativar o modulo?</h3>
+          <form id="modlog" method="POST" action="{{url_for('update_modlog', server_id=guild['id'])}}">
+          <button type="submit" class="btn btn-success" name="btn" value="ligar">Ativar</button>
+          <button type="submit" class="btn btn-danger" name="btn" value="desligar">Desativar</button>
+
+          {%endif%} 
+
+
+              {% if guild_db['status'] == True%}
+              <div class="fixed_buttun">
+                <button type="submit" class="btn btn-primary" name="btn" value="atualizar">Atualizar</button>
+                <button type="submit" class="btn btn-primary" name="btn" value="resetar">Resetar</button>
+                <button type="submit" class="btn btn-danger" name="btn" value="desligar">Desativar</button>
+             
+              </div>
+
+
+                  {%else%}
+                  {%endif%} 
+  
+
+            </div>
+          </form>
+        </div>
+
+    </div>
+  </div>
+
+  <script src="{{url_for('static', filename='js/mention.js')}}"></script>
+  <script src="{{url_for('static', filename='js/bootstrap-typeahead.js')}}"></script>
+  <link href="{{url_for('static', filename='css/recommended-styles.css')}}" rel="stylesheet">
+  </div>
+
+{% endblock %}

@@ -29,34 +29,62 @@ except Exception as e:
 # Database settings
 ###########################################
 
-servidor_status = db["raphtalia"]["guild"]
+servidor_status = db["asuna"]["guild"]
 
 def get_guild_insert(guild):
-      data = {"_id":guild,
-              "welcome_channel":None,
-              "welcome_type":3,
-              "welcome_text":None,
-              "welcome_private":False,
-              "welcome_status":False,
-              "leave_channel":None,
-              "leave_type":3,
-              "leave_text":None,
-              "leave_status":False,
-              "autorole_role":None,
-              "autorole_status":False,
-              "suggestion_channel":None,
-              "suggestion_status":False,
-              "membercount_channel":None,
-              "membercount_status":False,
-              "guild_lock":False,
-              "channel_lock":[],
-              "user_block":[],
-              "prefix":"a!",
-              "language":"english"
+    data= {"_id":guild,
+            "welcome":{"channel":None,
+                       "type":3,
+                       "text":None,
+                       "status":False,
+                       "private":False
+                      },
+            "leave":{"channel":None,
+                       "type":3,
+                       "text":None,
+                       "status":False,
+                       "private":False
+                      },
+            "autorole":{"role":None,
+                        "status":False                 
+                      },
+            "suggestion":{"channel":None,
+                          "status":False                 
+                         },
+            "membercount":{"channel":None,
+                          "status":False                 
+                         },
+            "modlog":{"channel":None,
+                     "status":False,
+                     "user_ban":False,
+                     "user_unban":False,
+                     "user_kick":False,                          
+                     "user_mute":False,
+                     "role_create":False,
+                     "role_delete":False,
+                     "role_update":False,
+                     "role_add":False,
+                     "role_remove":False,
+                     "message_edit":False,
+                     "message_delete":False,
+                     "message_am":False,
+                     "update_username":False,
+                     "update_nickname":False,
+                     "update_avatar":False,
+                     "emoji_create":False,
+                     "emoji_delete":False
+                     },                         
+            "config":{"prefix":"a!",
+                      "language":"english"                 
+                      },
+            "block":{"channel":[],
+                     "guild":False,
+                     "users":[]            
+                     }          
 
-              }
-      servidor_status.insert_one(data).inserted_id
-      return data
+          }
+    servidor_status.insert_one(data).inserted_id
+    return data
 
 def get_guild_find(ids):
   dados = servidor_status.find_one(ids)
@@ -64,17 +92,25 @@ def get_guild_find(ids):
     return get_guild_insert(ids)
   return dados
 
-def get_guild_update_welcome(ids, welcome_channel, welcome_type, welcome_text,welcome_private, welcome_status):
-    servidor_status.update_many({"_id":ids},{"$set": {"welcome_channel":welcome_channel,"welcome_type":welcome_type, "welcome_text":welcome_text,"welcome_private":welcome_private,"welcome_status":welcome_status}})
+def get_guild_update_welcome(ids, channel,type, text, private):
+    servidor_status.update_many({"_id":ids},{"$set": {"welcome.channel":channel,"welcome.type":type,"welcome.text":text,"welcome.status":True,"welcome.private":private}})
 
-def get_guild_update_leave(ids, leave_channel, leave_type, leave_text, leave_status):
-    servidor_status.update_many({"_id":ids},{"$set": {"leave_channel":leave_channel,"leave_type":leave_type, "leave_text":leave_text,"leave_status":leave_status}})
+def get_guild_update_leave(ids, channel,type, text, private):
+    servidor_status.update_many({"_id":ids},{"$set": {"leave.channel":channel,"leave.type":type,"leave.text":text,"leave.status":True,"leave.private":private}})
 
-def get_guild_update_two(ids, one_var,one_string, two_var,two_string):
-    servidor_status.update_many({"_id":ids},{"$set": {one_var:one_string, two_var:two_string}})
+def get_guild_update_autorole(ids, role,status):
+    servidor_status.update_many({"_id":ids},{"$set": {"autorole.role":role,"autorole.status":status}})
 
-def get_guild_update_func(ids, string, status):
-    servidor_status.update_one({"_id":ids},{"$set": {string:status}})
+def get_guild_update_suggestion(ids, channel,status):
+    servidor_status.update_many({"_id":ids},{"$set": {"suggestion.channel":channel,"suggestion.status":status}})
+
+def get_guild_update_membercount(ids, channel,status):
+    servidor_status.update_many({"_id":ids},{"$set": {"suggestion.channel":channel,"suggestion.status":status}})
+
+def get_guild_update_funcao(ids, var, value):
+    servidor_status.update_many({"_id":ids},{"$set": {var:value}})
+
+
 
 ###########################################
 # Fim

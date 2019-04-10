@@ -1,0 +1,19 @@
+body{
+	background-color: #fafafa !important;
+}
+.main-section{
+	margin-top:100px;
+	border:1px solid #d5d5d5;
+	box-shadow: 1px 1px 15px #000;
+	font-family: 'fontello', sans-serif;
+}
+.header{
+	font-size:22px;
+}
+.box-sectiopn i{
+	font-size:70px;
+	padding-top:30px; 
+}
+.box-sectiopn{
+	cursor: pointer;
+}

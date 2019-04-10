@@ -39,7 +39,7 @@ class on_message(commands.Cog):
         if message.author == self.client.user:
             return
       
-        if message.content == self.client.user.mention:
+        if message.content == f"<@!{self.client.user.id}>":
          if get_rank(message.author.id, list(message.author.guild_permissions), message.guild.id, message.channel.id) >=1:
           lang = get_lang(message.guild.id, "on_message")
           if message.author.id in aviso_2:

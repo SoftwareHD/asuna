@@ -21,6 +21,7 @@ import requests
 timeflood=dict()
 aviso = []
 
+
 ###########################################
 # Class reformulada
 ###########################################
@@ -42,69 +43,97 @@ class on_message(commands.Cog):
        try:
         guild_db = date_server_cache(member.guild.id)
         lang = get_lang(member.guild.id, "events")
-        if guild_db["welcome_type"] == "1":
-           if guild_db["welcome_status"] == False:
+        if guild_db["welcome"]["type"] == "1":
+           if guild_db["welcome"]["status"] == False:
               return 
-           if guild_db["welcome_channel"] == None:
-              return 
-           if guild_db["welcome_text"] == None:
+           if guild_db["welcome"]["channel"] == None:
               return
-           if guild_db["welcome_private"] == False:
-            channel = discord.utils.get(member.guild.channels, id=int(guild_db["welcome_channel"]))
+           if guild_db["welcome"]["text"] == None:
+              return                
+           if guild_db["welcome"]["private"] == False:
+
+            channel = discord.utils.get(member.guild.channels, id=int(guild_db["welcome"]["channel"]))
             if channel is None:
                return
-            await channel.send(guild_db["welcome_text"])
-           elif guild_db["welcome_private"] == True:
+            await channel.send(guild_db["welcome"]["text"])
+           elif guild_db["welcome"]["private"] == True:
              try:
               channel = discord.utils.get(member.guild.members, id=int(member.id))
               if channel is None:
                  return
-              await channel.send(guild_db["welcome_text"])
+              texto = str(guild_db["welcome"]["text"]).replace("{user}",str(member)).replace("{user.id}",str(member.id))\
+              .replace("{user.avatar}",str(member.avatar_url)).replace("{user.discriminator}",str(member.discriminator))\
+              .replace("{user.name}",str(member.name)).replace("{user.mention}",str(member.mention))\
+              .replace("{guild.name}",str(member.guild.name)).replace("{guild.id}",str(member.guild.id))\
+              .replace("{guild.member_count}",str(member.guild.member_count))\
+              .replace("{guild.icon}",str(member.guild.icon_url))
+              await channel.send(str(texto))
              except:
                 pass
            else:
-             channel = discord.utils.get(member.guild.channels, id=int(guild_db["welcome_channel"]))
+             channel = discord.utils.get(member.guild.channels, id=int(guild_db["welcome"]["channel"]))
              if channel is None:
                 return
-             await channel.send(guild_db["welcome_text"])
+             texto = str(guild_db["welcome"]["text"]).replace("{user}",str(member)).replace("{user.id}",str(member.id))\
+             .replace("{user.avatar}",str(member.avatar_url)).replace("{user.discriminator}",str(member.discriminator))\
+             .replace("{user.name}",str(member.name)).replace("{user.mention}",str(member.mention))\
+             .replace("{guild.name}",str(member.guild.name)).replace("{guild.id}",str(member.guild.id))\
+             .replace("{guild.member_count}",str(member.guild.member_count))\
+             .replace("{guild.icon}",str(member.guild.icon_url))
+             await channel.send(str(texto))
 
-        if guild_db["welcome_type"] == "2":
-           if guild_db["welcome_status"] == False:
+        if guild_db["welcome"]["type"] == "2":
+           if guild_db["welcome"]["status"] == False:
               return 
-           if guild_db["welcome_channel"] == None:
+           if guild_db["welcome"]["channel"] == None:
               return 
-           if guild_db["welcome_text"] == None:
-              return
-           embed=discord.Embed(description=str(guild_db["welcome_text"]), color=0x7BCDE8)
+           
+           texto = str(guild_db["welcome"]["text"]).replace("{user}",str(member)).replace("{user.id}",str(member.id))\
+           .replace("{user.avatar}",str(member.avatar_url)).replace("{user.discriminator}",str(member.discriminator))\
+           .replace("{user.name}",str(member.name)).replace("{user.mention}",str(member.mention))\
+           .replace("{guild.name}",str(member.guild.name)).replace("{guild.id}",str(member.guild.id))\
+           .replace("{guild.member_count}",str(member.guild.member_count))\
+           .replace("{guild.icon}",str(member.guild.icon_url))
+           embed=discord.Embed(description=str(texto), color=0x7BCDE8)
            member_text = str(lang["member_join"]).format(member)
            embed.set_author(name=str(member_text), icon_url=member.avatar_url)
            embed.set_thumbnail(url=member.avatar_url)
            embed.set_footer(text=self.client.user.name+" © 2019", icon_url=self.client.user.avatar_url_as())
-           if guild_db["welcome_private"] == False:
-            channel = discord.utils.get(member.guild.channels, id=int(guild_db["welcome_channel"]))
+           if guild_db["welcome"]["private"] == False:
+            channel = discord.utils.get(member.guild.channels, id=int(guild_db["welcome"]["channel"]))
             if channel is None:
                return
-            await channel.send(embed=embed,content=member.mention)
-           elif guild_db["welcome_private"] == True:
+            if guild_db["welcome"]["text"] == None:                   
+               await channel.send(embed=embed)
+            else:
+              texto = guild_db["welcome"]["text"]
+              await channel.send(embed=embed,content=str(member.mention))           
+           elif guild_db["welcome"]["private"] == True:
              try:
               channel = discord.utils.get(member.guild.members, id=int(member.id))
               if channel is None:
                  return
-              await channel.send(embed=embed,content=member.mention)
+              if guild_db["welcome"]["text"] == None:                   
+                 await channel.send(embed=embed)
+              else:
+                texto = guild_db["welcome"]["text"]
+                await channel.send(embed=embed,content=str(member.mention))
              except:
                 pass
            else:
-             channel = discord.utils.get(member.guild.channels, id=int(guild_db["welcome_channel"]))
+             channel = discord.utils.get(member.guild.channels, id=int(guild_db["welcome"]["channel"]))
              if channel is None:
                 return
-             await channel.send(embed=embed,content=member.mention)
-        if guild_db["welcome_type"] == "3":
-           if guild_db["welcome_status"] == False:
+             if guild_db["welcome"]["text"] == None:                   
+                 await channel.send(embed=embed)
+             else:
+              texto = guild_db["welcome"]["text"]
+              await channel.send(embed=embed,content=str(member.mention))        
+        if guild_db["welcome"]["type"] == "3":
+           if guild_db["welcome"]["status"] == False:
               return 
-           if guild_db["welcome_channel"] == None:
+           if guild_db["welcome"]["channel"] == None:
               return 
-           if guild_db["welcome_text"] == None:
-              return
            url = requests.get(member.avatar_url)
            avatar = Image.open(BytesIO(url.content))
            avatar = avatar.resize((245, 245));
@@ -138,26 +167,53 @@ class on_message(commands.Cog):
            arquivo = discord.File("./files/welcome.png", filename="welcome.png")
            embed = discord.Embed(color=0x7BCDE8)
            embed.set_image(url="attachment://welcome.png")
-           if guild_db["welcome_private"] == False:
-            channel = discord.utils.get(member.guild.channels, id=int(guild_db["welcome_channel"]))
+           if guild_db["welcome"]["private"] == False:
+            channel = discord.utils.get(member.guild.channels, id=int(guild_db["welcome"]["channel"]))
             if channel is None:
                return
-            await channel.send(file=arquivo, embed=embed, content=member.mention)
-           elif guild_db["welcome_private"] == True:
+            if guild_db["welcome"]["text"] == None:                   
+               await channel.send(file=arquivo, embed=embed)              
+            else:
+              texto = str(guild_db["welcome"]["text"]).replace("{user}",str(member)).replace("{user.id}",str(member.id))\
+              .replace("{user.avatar}",str(member.avatar_url)).replace("{user.discriminator}",str(member.discriminator))\
+              .replace("{user.name}",str(member.name)).replace("{user.mention}",str(member.mention))\
+              .replace("{guild.name}",str(member.guild.name)).replace("{guild.id}",str(member.guild.id))\
+              .replace("{guild.member_count}",str(member.guild.member_count))\
+              .replace("{guild.icon}",str(member.guild.icon_url))              
+              await channel.send(file=arquivo, embed=embed, content=str(texto))           
+           elif guild_db["welcome"]["private"] == True:
              try:
               channel = discord.utils.get(member.guild.members, id=int(member.id))
               if channel is None:
                  return
-              await channel.send(file=arquivo, embed=embed, content=member.mention)
+              if guild_db["welcome"]["text"] == None:                   
+                 await channel.send(file=arquivo, embed=embed)
+              else:
+                texto = str(guild_db["welcome"]["text"]).replace("{user}",str(member)).replace("{user.id}",str(member.id))\
+                .replace("{user.avatar}",str(member.avatar_url)).replace("{user.discriminator}",str(member.discriminator))\
+                .replace("{user.name}",str(member.name)).replace("{user.mention}",str(member.mention))\
+                .replace("{guild.name}",str(member.guild.name)).replace("{guild.id}",str(member.guild.id))\
+                .replace("{guild.member_count}",str(member.guild.member_count))\
+                .replace("{guild.icon}",str(member.guild.icon_url))
+                await channel.send(file=arquivo, embed=embed, content=str(texto))           
              except:
                 pass
            else:
-            channel = discord.utils.get(member.guild.channels, id=int(guild_db["welcome_channel"]))
+            channel = discord.utils.get(member.guild.channels, id=int(guild_db["welcome"]["channel"]))
             if channel is None:
-               return             
-            await channel.send(file=arquivo, embed=embed, content=member.mention)
+               return  
+            if guild_db["welcome"]["text"] == None:                   
+                await channel.send(file=arquivo, embed=embed)
+            else:
+              texto = str(guild_db["welcome"]["text"]).replace("{user}",str(member)).replace("{user.id}",str(member.id))\
+              .replace("{user.avatar}",str(member.avatar_url)).replace("{user.discriminator}",str(member.discriminator))\
+              .replace("{user.name}",str(member.name)).replace("{user.mention}",str(member.mention))\
+              .replace("{guild.name}",str(member.guild.name)).replace("{guild.id}",str(member.guild.id))\
+              .replace("{guild.member_count}",str(member.guild.member_count))\
+              .replace("{guild.icon}",str(member.guild.icon_url))
+              await channel.send(file=arquivo, embed=embed, content=str(texto))           
        except Exception as e:
-           print(e)
+           pass
 # Função leitura do cog
 ###########################################
 

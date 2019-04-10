@@ -36,12 +36,12 @@ class on_message(commands.Cog):
         try:
          guild_db = date_server_cache(member.guild.id)
          lang = get_lang(member.guild.id, "events")
+         if guild_db["membercount"]["channel"] == None:
+            return
          canal = discord.utils.get(member.guild.channels, id=int(guild_db["membercount_channel"]))
          if canal is None:
             return
-         if guild_db["membercount_channel"] == None:
-            return
-         if guild_db["membercount_status"] == False:
+         if guild_db["membercount"]["status"] == False:
             return
          json ={
              "E0":"<:num_zero:563051887461400586>",
@@ -63,7 +63,7 @@ class on_message(commands.Cog):
          texto = str(lang["member_count"]).format(text)
          await canal.edit(topic=texto)      
         except Exception as e:
-            print(e)
+            pass
 
     @commands.Cog.listener()
     async def on_member_remove(self, member):
@@ -72,12 +72,12 @@ class on_message(commands.Cog):
         try:
          guild_db = date_server_cache(member.guild.id)
          lang = get_lang(member.guild.id, "events")
+         if guild_db["membercount"]["channel"] == None:
+            return
          canal = discord.utils.get(member.guild.channels, id=int(guild_db["membercount_channel"]))
          if canal is None:
             return
-         if guild_db["membercount_channel"] == None:
-            return
-         if guild_db["membercount_status"] == False:
+         if guild_db["membercount"]["status"] == False:
             return
          json ={
              "E0":"<:num_zero:563051887461400586>",
@@ -97,10 +97,9 @@ class on_message(commands.Cog):
          for n in range(0, 10):
             text = text.replace("E"+str(n), json["E"+str(n)])                                                  
          texto = str(lang["member_count"]).format(text)
-         await canal.edit(topic=texto)         
+         await canal.edit(topic=texto)      
         except Exception as e:
-            print(e)
-
+            pass
 ###########################################
 # Função leitura do cog
 ###########################################

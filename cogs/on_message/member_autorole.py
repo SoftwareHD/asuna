@@ -40,13 +40,13 @@ class on_message(commands.Cog):
         if member == self.client.user:
             return
         guild_db = date_server_cache(member.guild.id)
-        if guild_db["autorole_status"] == False:
+        if guild_db["autorole"]["status"] == False:
            return
-        if guild_db["autorole_role"] == None:
+        if guild_db["autorole"]["role"] == None:
            return           
         try:
           user = discord.utils.get(member.guild.members, id=int(member.id))
-          role = discord.utils.get(member.guild.roles, id=int(guild_db["autorole_role"]))
+          role = discord.utils.get(member.guild.roles, id=int(guild_db["autorole"]["role"]))
           if role is None:
              return
           if user is None:

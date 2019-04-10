@@ -36,15 +36,16 @@ class on_message(commands.Cog):
             return
         try:
          guild_db = date_server_cache(message.guild.id)
-         if guild_db["suggestion_channel"] == None:
+         if guild_db["suggestion"]["channel"] == None:
             return
-         if guild_db["suggestion_status"] == False:
+         if guild_db["suggestion"]["status"] == False:
             return
-         if int(message.channel.id) == int(guild_db["suggestion_channel"]): 
+         if int(message.channel.id) == int(guild_db["suggestion"]["channel"]): 
            for reaction in lista:
             await message.add_reaction(reaction)
         except Exception as e:
-            print(e)
+            pass
+            
 ###########################################
 # Função leitura do cog
 ###########################################

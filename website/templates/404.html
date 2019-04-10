@@ -1,0 +1,23 @@
+{% extends 'full-page-2.html' %}
+{% block content %}
+<style>
+
+</style>
+    <title>Asuna - 404 Not found</title>
+	<div class="jumbotron home-jumbotron">
+		<div class="container">
+			<div class="row" style="display: flex;align-items: center;">
+				<div class="col-md-12  col-sm-12 text-center animated bounceInUp">
+					<img src="{{url_for('static', filename='img/asuna_index.png')}}" class="hidden-xs">
+					<h1><strong>404</strong></h1>
+					<h3>A página não foi encontrada!</h3>
+					<br>
+			 <a href="/"><button type="submit" class="btn btn-primary"><i class="fa fa-share-square"></i> Voltar para o index</button></a>
+
+
+					</p>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}

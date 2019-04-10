@@ -11,7 +11,7 @@
 
       <div class="col-md-8">
 
-          {% if guild_db['autorole_status'] == True %}
+          {% if guild_db['status'] == True %}
             
                 {% if sts == True%}
 
@@ -26,17 +26,17 @@
               <label class="control-label" for="channel_name">Cargo de entrada</label>
               <select class="input-lg form-control" name="role_id">
 
-                  <option value="None"{%if guild_db['autorole_role'] == None %} selected{%endif%}>Não definido</option>
+                  <option value="None"{%if ['role'] == None %} selected{%endif%}>Não definido</option>
                   {% for role in roles %}
                    {% if role.name != "@everyone"%}
-                      <option value="{{role.id}}"{%if role.id == guild_db['autorole_role'] %} selected{%endif%}>{{role.name}}</option>
+                      <option value="{{role.id}}"{%if role.id == guild_db['role'] %} selected{%endif%}>{{role.name}}</option>
                    {%else%}
                    {%endif%} 
 
                   {% endfor %}    
               </select>
               <div class="well well-sm">
-                <strong>Aviso: </strong> A <strong>Asuna</strong> precisará a permissão <strong>Gerenciar cargos</strong> no servidor para funcionar.. caso não tenha a permissão irá ignorar.
+                <strong>Aviso: </strong> A <strong>Asuna</strong> precisará a permissão <strong>Gerenciar cargos</strong> no servidor para funcionar,caso ela não tenha a permissão irá ignorar a ação.
               </div>
 
               <br>
@@ -51,7 +51,7 @@
           {%endif%} 
 
 
-              {% if guild_db['autorole_status'] == True%}
+              {% if guild_db['status'] == True%}
 
               <button type="submit" class="btn btn-primary" name="btn" value="atualizar">Atualizar</button>
               <button type="submit" class="btn btn-primary" name="btn" value="resetar">Resetar</button>

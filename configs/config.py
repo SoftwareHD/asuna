@@ -33,38 +33,65 @@ except Exception as e:
 # Database settings
 ###########################################
 
-servidor_status = db["raphtalia"]["guild"]
+servidor_status = db["asuna"]["guild"]
 
 def get_guild_insert(guild):
-      data = {"_id":guild,
-              "welcome_channel":None,
-              "welcome_type":3,
-              "welcome_text":None,
-              "welcome_private":False,
-              "welcome_status":False,
-              "leave_channel":None,
-              "leave_type":3,
-              "leave_text":None,
-              "leave_status":False,
-              "autorole_role":None,
-              "autorole_status":False,
-              "suggestion_channel":None,
-              "suggestion_status":False,
-              "membercount_channel":None,
-              "membercount_status":False,
-              "guild_lock":False,
-              "channel_lock":[],
-              "user_block":[],
-              "prefix":"a!",
-              "language":"english"
+    data= {"_id":guild,
+            "welcome":{"channel":None,
+                       "type":3,
+                       "text":None,
+                       "status":False,
+                       "private":False
+                      },
+            "leave":{"channel":None,
+                       "type":3,
+                       "text":None,
+                       "status":False,
+                       "private":False
+                      },
+            "autorole":{"role":None,
+                        "status":False                 
+                      },
+            "suggestion":{"channel":None,
+                          "status":False                 
+                         },
+            "membercount":{"channel":None,
+                          "status":False                 
+                         },
+            "modlog":{"channel":None,
+                     "status":False,
+                     "user_ban":False,
+                     "user_unban":False,
+                     "user_kick":False,                          
+                     "user_mute":False,
+                     "role_create":False,
+                     "role_delete":False,
+                     "role_update":False,
+                     "role_add":False,
+                     "role_remove":False,
+                     "message_edit":False,
+                     "message_delete":False,
+                     "message_am":False,
+                     "update_username":False,
+                     "update_nickname":False,
+                     "update_avatar":False,
+                     "emoji_create":False,
+                     "emoji_delete":False
+                     },                         
+            "config":{"prefix":"a!",
+                      "language":"english"                 
+                      },
+            "block":{"channel":[],
+                     "guild":False,
+                     "users":[]            
+                     }          
 
-              }
-
-      servidor_status.insert_one(data).inserted_id
-      return data
+          }
+    servidor_status.insert_one(data).inserted_id
+    return data
 
 def get_guild_find(ids):
-  dados = servidor_status.find_one(ids)
+  dados = servidor_status.find_one({"_id":ids})
   if dados is None:
     return get_guild_insert(ids)
   return dados
@@ -107,8 +134,8 @@ def date_server_cache(ids):
      server_date(ids, get_guild_find(ids))
      return server_cache[ids]
 
-def get_guild_update_func(ids, string, status):
-    servidor_status.update_one({"_id":ids},{"$set": {string:status}})
+def get_guild_update_func(ids, s_2,s_3):
+    servidor_status.update_one({"_id":ids},{"$set": {s_2:s_3}})
     if ids in server_cache:
        remove(ids)
        time.sleep(1)
@@ -132,7 +159,7 @@ for i in os.listdir('./json/languages'):
 
 def get_lang(guild, cmd):
   if guild in server_cache:
-   language = server_cache[guild]["language"]
+   language = server_cache[guild]["config"]["language"]
    try:
      return translate[language][cmd] 
    except KeyError:
@@ -146,7 +173,7 @@ def get_lang(guild, cmd):
 
 def get_prefix(guild):
   if guild in server_cache:
-   prefix = server_cache[guild]["prefix"]
+   prefix = server_cache[guild]["config"]["prefix"]
    try:
      return prefix
    except KeyError:
@@ -170,14 +197,14 @@ def get_rank(user, list_perma, guild, channel):
      elif str(user) in config["staff"]["designer"]:return 3
      elif str(user) in config["staff"]["hunterbug"]:return 2
      else:
-       if ('administrator', True) in list_perma: return 6
+       if channel in servidor["block"]["channel"]:return -1
+       elif servidor["block"]["guild"] is True: return -2
+       elif user in servidor["block"]["users"]:return -3
+       elif ('administrator', True) in list_perma: return 6
        elif ('manage_guild', True) in list_perma:return 5
        elif ('ban_members', True) in list_perma: return 4
        elif ('kick_members', True) in list_perma: return 3
        elif ('manage_roles', True) in list_perma: return 2
-       elif channel in servidor["channel_lock"]:return -1
-       elif servidor["guild_lock"] is True: return -2
-       elif user in servidor["user_block"]:return -3
        else:
          return 1   
    except:

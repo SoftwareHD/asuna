@@ -39,7 +39,7 @@ class prefix(commands.Cog):
   
         try:
            embed = discord.Embed(description=lang['prefix_set'].format(args), color=0x7BCDE8)
-           get_guild_update_func(ctx.guild.id, "prefix", args)
+           get_guild_update_func(ctx.guild.id,"config.prefix", args)
            await ctx.send(embed=embed)
            return  
         except Exception as e:
