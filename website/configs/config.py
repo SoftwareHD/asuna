@@ -13,7 +13,8 @@ import pymongo
 
 with open('./json/dados.json', encoding='utf-8') as json_dados:
   config = json.load(json_dados)  
-
+with open('./json/modlog.json', encoding='utf-8') as json_dados:
+  modlog = json.load(json_dados)
 
 ###########################################
 # Conexão com database
@@ -55,24 +56,25 @@ def get_guild_insert(guild):
                           "status":False                 
                          },
             "modlog":{"channel":None,
-                     "status":False,
-                     "user_ban":False,
-                     "user_unban":False,
-                     "user_kick":False,                          
-                     "user_mute":False,
-                     "role_create":False,
-                     "role_delete":False,
-                     "role_update":False,
-                     "role_add":False,
-                     "role_remove":False,
-                     "message_edit":False,
-                     "message_delete":False,
-                     "message_am":False,
-                     "update_username":False,
-                     "update_nickname":False,
-                     "update_avatar":False,
-                     "emoji_create":False,
-                     "emoji_delete":False
+                      "status":False,
+                      "user_ban":False,
+                      "user_unban":False,
+                      "user_kick":False,
+                      "user_mute":False,
+                      "role_create":False,
+                      "role_delete":False,
+                      "role_update":False,
+                      "channel_create":False,
+                      "channel_delete":False,
+                      "channel_update":False,
+                      "emoji_create":False,
+                      "emoji_delete":False,
+                      "message_edit":False,
+                      "message_delete":False,
+                      "message_delete_am":False,
+                      "user_name":False,
+                      "user_avatar":False,
+                      "user_nickname":False
                      },                         
             "config":{"prefix":"a!",
                       "language":"english"                 
@@ -106,6 +108,26 @@ def get_guild_update_suggestion(ids, channel,status):
 
 def get_guild_update_membercount(ids, channel,status):
     servidor_status.update_many({"_id":ids},{"$set": {"suggestion.channel":channel,"suggestion.status":status}})
+def get_guild_update_modlog(ids,channel,user_ban,user_unban,user_kick,user_mute,role_create,role_delete,role_update,channel_create,channel_delete,channel_update,emoji_create,emoji_delete,message_edit,message_delete,message_delete_am,user_name,user_avatar,user_nickname):
+    servidor_status.update_many({"_id":ids},{"$set": {'modlog.channel':channel,
+                                                            'modlog.user_ban':user_ban,
+                                                            'modlog.user_unban':user_unban,
+                                                            'modlog.user_kick':user_kick,
+                                                            'modlog.user_mute':user_mute,
+                                                            'modlog.role_create':role_create,
+                                                            'modlog.role_delete':role_delete,
+                                                            'modlog.role_update':role_update,
+                                                            'modlog.channel_create':channel_create,
+                                                            'modlog.channel_delete':channel_delete,
+                                                            'modlog.channel_update':channel_update,
+                                                            'modlog.emoji_create':emoji_create,
+                                                            'modlog.emoji_delete':emoji_delete,
+                                                            'modlog.message_edit':message_edit,
+                                                            'modlog.message_delete':message_delete,
+                                                            'modlog.message_delete_am':message_delete_am,
+                                                            'modlog.user_name':user_name,
+                                                            'modlog.user_avatar':user_avatar,
+                                                            'modlog.user_nickname':user_nickname}})
 
 def get_guild_update_funcao(ids, var, value):
     servidor_status.update_many({"_id":ids},{"$set": {var:value}})

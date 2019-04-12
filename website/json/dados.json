@@ -1,17 +1,3 @@
 {
 
- "id_bot":"513037350562037771",
- "secret":"yCLvN2rS-QWQvHovh_wATWvT3MqZvhNw",
- "secret_key":"Ai7g7aLKMfCW",
- "database":"mongodb+srv://yuka:D157359@raphtalia-arejz.mongodb.net/raphtalia?retryWrites=true",
- "token_bot":"Bot NTEzMDM3MzUwNTYyMDM3Nzcx.XKLiaw.kEyY6IOjvaxuRNgIDSgyKEsnyl0",
- "redirect":"http://localhost:8000/callback", 
- "redirect_2":"http://localhost:8000/guilds",
- "redirect_3":"http://localhost:8000/",
- "scopes":"identify email guilds",
- "url_api":"https://discordapp.com/api/v6",
- "url_app":"https://discordapp.com/api/oauth2/authorize?client_id={}&redirect_uri={}&response_type=code&scope={}",
- "url_bot":"https://discordapp.com/api/oauth2/authorize?client_id={}&permissions=8&redirect_uri={}&response_type=code&scope={}",
- "url_invite":"https://discordapp.com/api/oauth2/authorize?client_id={}&permissions=8&guild_id={}&redirect_uri={}&response_type=code&scope=bot"
-
 }

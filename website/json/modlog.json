@@ -1,0 +1,23 @@
+{
+
+  "user_ban":{"modulo":"Usuário banido","text":"Irá gerar uma notificação com às informações de um usuário quando for banido."},
+  "user_unban":{"modulo":"Usuário desbanido","text":"Irá gerar uma notificação com às informações de um usuário quando desbanido."},
+  "user_kick":{"modulo":"Usuário kickado","text":"Irá gerar uma notificação com às informações de um usuário quando kickado."},
+  "user_mute":{"modulo":"Usuário mutado","text":"Irá gerar uma notificação com às informações de um usuário quando mutado."},
+  "role_create":{"modulo":"Cargo criado","text":"Irá gerar uma notificação com às informações de um cargo quando for criado no servidor."},
+  "role_delete":{"modulo":"Cargo apagado","text":"Irá gerar uma notificação com às informações de um cargo quando for excluído no servidor."},
+  "role_update":{"modulo":"Cargo atualizado","text":"Irá gerar uma notificação com às informações de um cargo quando for atualizado no servidor."},
+  "channel_create":{"modulo":"Canal criado","text":"Irá gerar uma notificação com às informações de um canal quando for criado no servidor."},
+  "channel_delete":{"modulo":"Canal excluído","text":"Irá gerar uma notificação com às informações de um canal quando for excluído no servidor."},
+  "channel_update":{"modulo":"Canal atualizado","text":"Irá gerar uma notificação com às informações de um canal quando for atualizado no servidor."},
+  "emoji_create":{"modulo":"Emoji criado","text":"Irá gerar uma notificação com às informações de um emoji quando for criado no servidor."},
+  "emoji_delete":{"modulo":"Emoji excluído","text":"Irá gerar uma notificação com às informações de um emoji quando for excluído no servidor."},
+  "message_edit":{"modulo":"Mensagem editada","text":"Irá gerar uma notificação com às informações de uma mensagem quando ela for editada no servidor."},
+  "message_delete":{"modulo":"Mensagem excluída","text":"Irá gerar uma notificação com às informações de uma mensagem quando ela for apagada no servidor."},
+  "message_delete_am":{"modulo":"Mensagem excluída (em massa)","text":"Irá gerar um arquivo com todas as mensagens apagada no servidor"},
+  "user_name":{"modulo":"Username atualizado","text":"Irá gerar uma notificação com às informações de quando um usuário trocar seu nome de usuário."},
+  "user_avatar":{"modulo":"Avatar atualizado","text":"Irá gerar uma notificação com às informações de quando um usuário trocar seu avatar."},
+  "user_nickname":{"modulo":"Nickname atualizado","text":"Irá gerar uma notificação com às informações de quando um usuário trocar seu apelido no servidor. ."}
+
+
+}

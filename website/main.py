@@ -478,7 +478,7 @@ def dashboard_modlog(server_id):
 
      except requests.exceptions.HTTPError:return redirect("/")
    
-     return render_template('dashboard_modlog.html', guild=guild, sts=sts,channels=channels, guild_db=guild_db["modlog"],user=user, date=date, title="Asuna - "+guild["name"])
+     return render_template('modlog.html', guild=guild, modlog=modlog, sts=sts,channels=channels, guild_db=guild_db["modlog"],user=user, date=date, title="Asuna - "+guild["name"])
 
 ###########################################
 # get dados do membercount
@@ -490,12 +490,27 @@ def update_modlog(server_id):
       return redirect('/')
     guild_db = get_guild_find(server_id)
     if request.form["btn"] == "atualizar":
-        membercount_id = request.form.get('channel_id')
-        if not server_id in checks:
-           checks.append(server_id)
-        else:
-          pass         
-        get_guild_update_funcao(server_id, "membercount.channel",num)        
+        channel = request.form.get('channel_id')
+        user_ban = request.form.get('user_ban')
+        user_unban = request.form.get('user_unban')
+        user_kick = request.form.get('user_kick')
+        user_mute = request.form.get('user_mute')
+        role_create = request.form.get('role_create')
+        role_delete = request.form.get('role_delete')
+        role_update = request.form.get('role_update')
+        channel_create = request.form.get('channel_create')
+        channel_delete = request.form.get('channel_delete')
+        channel_update = request.form.get('channel_update')
+        emoji_create = request.form.get('emoji_create')
+        emoji_delete = request.form.get('emoji_delete')
+        message_edit = request.form.get('message_edit')
+        message_delete = request.form.get('message_delete')
+        message_delete_am = request.form.get('message_delete_am')
+        user_name = request.form.get('user_name')
+        user_avatar = request.form.get('user_avatar')
+        user_nickname = request.form.get('user_nickname') 
+
+        get_guild_update_modlog(server_id, channel, user_ban,user_unban,user_kick,user_mute,role_create,role_delete,role_update,channel_create,channel_delete,channel_update,emoji_create,emoji_delete,message_edit,message_delete,message_delete_am,user_name,user_avatar,user_nickname)
         return redirect(url_for('dashboard_modlog', server_id=server_id))
     if request.form["btn"] == "resetar":
        get_guild_update_membercount(ids, None, False)
