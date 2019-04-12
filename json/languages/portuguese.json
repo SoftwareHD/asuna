@@ -241,6 +241,21 @@
 	          "example":["{prefixo}prefix a!!"]
 
 
+    },
+    "modlog":{"edited":"Logs (Mensagem editada)",
+    	      "edited_1":"<:text:559826694769344522> Mensagem (Antes)",
+    	      "edited_2":"<:text:559826694769344522> Mensagem (Depois)",
+              "user":"<:user:566235017009954816> Usuário",
+              "channel":"<:hashtag:558397558549118978> Canal",
+              "time":"<:countdown:555852976720445443> Horário",
+              "delet":"Logs (Mensagem apagada)",
+              "delet_am":"Logs (Mensagens apagada massa)",
+              "count":"<:123:556280026019004433> Quantidade",
+              "link":"<:link:566305578817814528> Link"
+
+
+
+
     }           
 
 }

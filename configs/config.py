@@ -59,24 +59,25 @@ def get_guild_insert(guild):
                           "status":False                 
                          },
             "modlog":{"channel":None,
-                     "status":False,
-                     "user_ban":False,
-                     "user_unban":False,
-                     "user_kick":False,                          
-                     "user_mute":False,
-                     "role_create":False,
-                     "role_delete":False,
-                     "role_update":False,
-                     "role_add":False,
-                     "role_remove":False,
-                     "message_edit":False,
-                     "message_delete":False,
-                     "message_am":False,
-                     "update_username":False,
-                     "update_nickname":False,
-                     "update_avatar":False,
-                     "emoji_create":False,
-                     "emoji_delete":False
+                      "status":False,
+                      "user_ban":False,
+                      "user_unban":False,
+                      "user_kick":False,
+                      "user_mute":False,
+                      "role_create":False,
+                      "role_delete":False,
+                      "role_update":False,
+                      "channel_create":False,
+                      "channel_delete":False,
+                      "channel_update":False,
+                      "emoji_create":False,
+                      "emoji_delete":False,
+                      "message_edit":False,
+                      "message_delete":False,
+                      "message_delete_am":False,
+                      "user_name":False,
+                      "user_avatar":False,
+                      "user_nickname":False
                      },                         
             "config":{"prefix":"a!",
                       "language":"english"                 
@@ -85,8 +86,7 @@ def get_guild_insert(guild):
                      "guild":False,
                      "users":[]            
                      }          
-
-          }
+}
     servidor_status.insert_one(data).inserted_id
     return data
 

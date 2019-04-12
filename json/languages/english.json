@@ -239,6 +239,22 @@
 	          "aliases":["prefix"],
 	          "example":["{prefixo}language a!!"]
 
+    },
+     "modlog":{"edited":"Logs (Message edited)",
+    	      "edited_1":"<:text:559826694769344522> Message (Before)",
+    	      "edited_2":"<:text:559826694769344522> Message (After)",
+              "user":"<:user:566235017009954816> User",
+              "channel":"<:hashtag:558397558549118978> Channel",
+              "time":"<:countdown:555852976720445443> Time",
+              "delet":"Logs (Message deleted)",
+              "delet_1":"<:text:559826694769344522> Mensagem",
+              "delet_am":"Logs (Messages deleted mass)",
+              "count":"<:123:556280026019004433> Amount",
+              "link":"<:link:566305578817814528> Link"
+
+
+
+
     }           
 
 }
